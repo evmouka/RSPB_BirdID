@@ -1,7 +1,7 @@
 import { useState } from "react";
 import InfoIcon from "../components/info-icon.tsx"
 import ChatBubble from "../components/chat-bubble.tsx"
-import categoryPrompts from '../src/categoryPrompt.json';
+import categoryPrompts from '../categoryPrompts.json';
 
 interface CategoryPrompts {
   [key: string]: string;
@@ -55,7 +55,7 @@ const Chat: React.FC = () => {
           "Content-Type": "Application/json"
         },
         body: JSON.stringify({
-          "message": userMessage,
+          "message": userMessage.content,
           "categoryPrompt": prompt,
           "categories": categories
       })
