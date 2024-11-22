@@ -15,7 +15,7 @@ def process_bird_data(json_data):
     )
 
     dic = claude_1(request_data.message)
-    dic = algo_dic =  dic["bird_sighting"]
+    dic = algo_dic =  request_data.categories.update(dic["bird_sighting"])
     print(dic)
     if "new_attribute" in dic:
         del algo_dic["new_attribute"]
