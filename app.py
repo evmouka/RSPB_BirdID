@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from model import Guess, Answer
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 def process_bird_data(json_data):
     request_data = Guess(
         message=json_data["message"],
@@ -27,6 +29,7 @@ def process_bird_data(json_data):
     return response_data
 
 @app.route('/birds', methods=['POST'])
+@cross_origin()
 def birds():
     if request.method == 'POST':
         data = request.get_json()
