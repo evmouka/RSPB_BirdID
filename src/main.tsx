@@ -9,4 +9,3 @@ import "@fontsource/nunito/700.css"
 import "./index.css"
 
 createRoot(document.getElementById("root")!).render(<App />)
-

@@ -1,23 +1,14 @@
-
+import Chat from "./sections/ChatLogic"
 import Header from "./sections/header"
-import Main from "./sections/main"
 
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <>
       <Header />
-      <Main />
-     
+      <Chat />
     </>
   )
 }
 
-export default App
-
-
-
-
-
-
-
+export default App;
