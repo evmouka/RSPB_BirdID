@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from model import Guess, Answer
 from flask_cors import CORS, cross_origin
+from algo import find_bird
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -12,9 +13,15 @@ def process_bird_data(json_data):
         categories=json_data["categories"]
     )
 
+    isConfused = False
     # request for adjectives from claude algorith.py 
 
-    # request to db based on adjectives
+    if not isConfused:
+        question, birds = find_bird({
+            "Plumage colour(s)": 'Brown'
+        })
+
+    print(question, birds)
 
     response_data = Answer(
         isConfused ="false",
