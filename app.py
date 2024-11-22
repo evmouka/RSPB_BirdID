@@ -15,12 +15,13 @@ def process_bird_data(json_data):
     )
 
     dic = claude_1(request_data.message)
+    dic = algo_dic =  dic["bird_sighting"]
     print(dic)
+    if "new_attribute" in dic:
+        del algo_dic["new_attribute"]
     isConfused = False
-    # request for adjectives from claude algorith.py 
-
     if not isConfused:
-        question, birds = find_bird(dic["bird_sighting"])
+        question, birds = find_bird(algo_dic)
 
     print(question, birds)
 
