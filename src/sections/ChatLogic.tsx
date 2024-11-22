@@ -1,7 +1,7 @@
 import { useState } from "react";
 import InfoIcon from "../components/info-icon.tsx"
 import ChatBubble from "../components/chat-bubble.tsx"
-import categoryPrompts from '../src/categoryPrompt.json';
+import categoryPrompts from '../categoryPrompts.json';
 
 interface CategoryPrompts {
   [key: string]: string;
@@ -13,8 +13,6 @@ interface Message {
 }
 
 const prompts: CategoryPrompts = categoryPrompts;
-
-
 
 interface ResponseData {
   isConfused: boolean;
