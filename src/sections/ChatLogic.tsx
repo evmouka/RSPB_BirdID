@@ -1,7 +1,27 @@
 import { useState } from "react";
-import { Message } from "../types/Message.ts";
 import InfoIcon from "../components/info-icon.tsx"
 import ChatBubble from "../components/chat-bubble.tsx"
+import categoryPrompts from '../src/categoryPrompt.json';
+
+interface CategoryPrompts {
+  [key: string]: string;
+}
+
+interface Message {
+  sender: "chatbot" | "user";
+  content: string;
+}
+
+const prompts: CategoryPrompts = categoryPrompts;
+
+
+
+interface ResponseData {
+  isConfused: boolean;
+  category_prompt: string;
+  identifications: any;
+  categories: Record<string, string>;
+}
 
 const Chat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
@@ -12,6 +32,9 @@ const Chat: React.FC = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  // const [request, setRequest] = useState({})
+  const [prompt, setPrompt] = useState("")
+  const [categories, setCategories] = useState({})
 
   const handleSend = async () => {
     if (input.trim() === "") return;
@@ -20,40 +43,55 @@ const Chat: React.FC = () => {
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
 
+
     setIsLoading(true);
     const loadingMessage: Message = { sender: "chatbot", content: "..." };
     setMessages((prev) => [...prev, loadingMessage]);
 
-    try {
-//fetch request will be here
-      const data = {
-        isConfused: false,
-        categoryPrompt: "beak shape",
-        identifications: null,
-        categories: {
-          "Plumage colour(s)": "black, gray",
-          "Tail shape 1": "fan",
-          Size: "small",
+    try{
+      await fetch("http://localhost:5000/birds", {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json"
         },
-      };
+        body: JSON.stringify({
+          "message": userMessage,
+          "categoryPrompt": prompt,
+          "categories": categories
+      })
+      }).then((res) => {
+      if (!res.ok) throw new Error("Failed to fetch response");
 
-      if (data && data.categoryPrompt) {
-        console.log(data.categoryPrompt);
+        return res.json();
+      })
+      .then((response) => {
+        const data: ResponseData = response.data
+        console.log(data)
+        let prompt = data.category_prompt
+        if(prompt == "beak shape"){
+          prompt = "Beak Shape 1"
+        }
+        console.log(prompt)
+
         setMessages((prev) => [
           ...prev.slice(0, -1),
-          { sender: "chatbot", content: data.categoryPrompt },
+          { sender: "chatbot", content: prompts[prompt] },
         ]);
-      }
-    } catch (error) {
-      console.error(error);
+        console.log(messages);
+
+        setPrompt(prompt);
+        setCategories(data.categories);
+      })
+    }
+    catch (error) {
       setMessages((prev) => [
         ...prev.slice(0, -1),
         { sender: "chatbot", content: "Oops! Something went wrong. Please try again." },
       ]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  } finally {
+    setIsLoading(false);
+  }
+}
 
   return(
     <div className="flex flex-col h-screen w-full ">
