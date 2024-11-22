@@ -1,0 +1,68 @@
+[
+    {
+        "isConfused": false,
+        "categoryPrompt": "beak shape",
+        "identifications": null,
+        "categories": {
+            "Plumage colour(s)": "black, gray",
+            "Tail shape 1": "fan",
+            "Size": "small"
+        }
+    },
+    {
+        "isConfused": false,
+        "categoryPrompt": null,
+        "identifications": {
+            "Species number": 1,
+            "Name": "House sparrow (adult male)",
+            "Latin name": "Passer domesticus",
+            "Alt names/ mispellings": "Sparrow, Housesparrow",
+            "Sex/ Age Variations": "Male",
+            "Seasonal Variations": null,
+            "Conservation status": "Red",
+            "Group": "Sparrows",
+            "Time of year active (UK)": "All Year Round",
+            "Summary\n(200 characters)": "These noisy and sociable birds are found around the world, thanks to their cheerful ability to make the most of humanity's rubbish and wastefulness",
+            "Picture (Primary)": "Primary image",
+            "Picture 2": "Picture 2",
+            "Picture 3": "Missing",
+            "Picture 4": "Missing",
+            "Illustration": "Illustration",
+            "Audio": "Audio",
+            "Distribution map": "Distribution map",
+            "Plumage colour(s)": "Cream/Buff, Brown, Grey, Black, White",
+            "Beak Colour(s)": "Black",
+            "Feet colour(s)": "Pink, Brown",
+            "Leg colour(s)": "Pink, Brown",
+            "Beak Shape 1": "Short, Stubby, Pointed",
+            "Beak shape 2 (optional)": null,
+            "Tail shape 1": "Square",
+            "Tail shape 2 (optional)": null,
+            "Pattern/ Markings": null,
+            "Diet": "Seeds and scraps",
+            "Population (UK)": "5,300,00 pairs",
+            "Min Length (cm)": 14,
+            "Max Length (cm)": 15,
+            "Mean length (cm)": 14.5,
+            "Size": "Small",
+            "Wingspan (cm)": "21-25.5",
+            "Weight (g)": "24-38",
+            "Habitat(s)": "Urban, Suburban, Farmland",
+            "Appearance": "Male house sparrows have a distinct plumage with a grey crown, chestnut nape, and black bib extending down the throat and breast. Their back and wings are brown with black streaks and their underparts are cream. They have a short, pointed bill which is black during breeding season and duller outside of breeding",
+            "Habitat": "House sparrows are highly adaptable birds that are commonly found in urban and suburban areas. They are often seen in gardens, parks, steets and agricultural areas",
+            "Call": "The call of a House Sparrow is a series of chirps and cheeps, often in quick succession",
+            "Behaviour": "House Sparrows are typically gregarious birds, often found in small flocks or pairs. They are opportunistic feeders, scavenging for food scraps and seeds in urban areas",
+            "Fact 1": "The collective noun for House Sparrows is a Quarrel of Sparrows",
+            "Fact 2": "Sparrows can fly up to 31mph",
+            "Fact 3": "There has been a nearly 60% decline in House Sparrow populations since 1979",
+            "Similar species": "Dunnocks, Tree Sparrows",
+            "Where to see them (countries)": "England, Scotland, Wales, Northern Ireland"
+        },
+        "categories": {
+            "Plumage colour(s)": "black, gray",
+            "Tail shape 1": "fan",
+            "Size": "small",
+            "beak shape": "short, sharp"
+        }
+    }
+]

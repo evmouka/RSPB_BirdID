@@ -1,0 +1,58 @@
+[
+    {
+        "sender": "user",
+        "message": "The bird was blue and black"
+    },
+    {
+        "sender": "bot",
+        "message": "To recap, the bird was (blue) and (black)"
+    },
+    {
+        "sender": "bot",
+        "message": "That is a great start! Could you tell me more about it's tail shape?"
+    },
+    {
+        "sender": "user",
+        "message": "It was pointed"
+    },
+    {
+        "sender": "bot",
+        "message": "To recap, the bird was(gray) and (black). It had a (pointed) tail"
+    },
+    {
+        "sender": "bot",
+        "message": "This information helps a lot! Do you remember the color of it's feets?"
+    },
+    {
+        "sender": "user",
+        "message": "no"
+    },
+    {
+        "sender": "bot",
+        "message": "How big was it?"
+    },
+    {
+        "sender": "user",
+        "message": "sdhguishdguisdhgiu"
+    },
+    {
+        "senser": "bot",
+        "message": "i didn't understand what you wanted to say, Could you select it's size"
+    },
+    {
+        "sender": "user",
+        "message": "tiny"
+    },
+    {
+        "sender": "bot",
+        "message": "To recap, the bird was (extra small), (gray) and (black). It had a (fanned) tail"
+    },
+    {
+        "sender": "bot",
+        "message": "The bird you spotted could be a Blue tilt or a wren. Which one is it?"
+    },
+    {
+        "sender": "bot",
+        "message": "The bird you spotted is a blue tilt! Do yo uwant to know more about it?"
+    }
+]
