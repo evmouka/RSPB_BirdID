@@ -86,7 +86,6 @@ def create_querry(dbName: str, dic: dict) -> str:
         if not value:
             continue
         conditions = []
-        value = value.split(', ')
         key = f"`{key}`"
         for item in value:
             conditions.append(f"{key} LIKE ?")

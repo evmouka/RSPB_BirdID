@@ -36,6 +36,7 @@ def process_bird_data(json_data):
         del algo_dic["new_attribute"]
 
     #find next best question + filtering
+    print(algo_dic)
     question, birds, error = find_bird(algo_dic, request_data.id)
     
     #get sumamry from claude
@@ -43,7 +44,6 @@ def process_bird_data(json_data):
         summary = claude_summary(algo_dic)
     else:
         summary = "We couldn't manage to get any informations from your input"
-    
     user_data = formatData(algo_dic, new_feature, request_data.message, request_data.user_data, error)
 
     if birds or not question or error:
