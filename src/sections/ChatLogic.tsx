@@ -22,6 +22,7 @@ interface ResponseData {
   identifications: any;
   categories: Record<string, string>;
   summary: string;
+  user_data: any;
 }
 
 const Chat: React.FC = () => {
@@ -36,6 +37,7 @@ const Chat: React.FC = () => {
   // const [request, setRequest] = useState({})
   const [prompt, setPrompt] = useState("")
   const [categories, setCategories] = useState({})
+  const [userData, setUserData] = useState<any>({}); // Initialize userData
 
   const handleSend = async () => {
     if (input.trim() === "") return;
@@ -58,7 +60,8 @@ const Chat: React.FC = () => {
         body: JSON.stringify({
           "message": userMessage.content,
           "categoryPrompt": prompt,
-          "categories": categories
+          "categories": categories,
+          "user_data": userData
         })
       })
       .then((res) => {
@@ -84,6 +87,7 @@ const Chat: React.FC = () => {
     
         setPrompt(newPrompt);
         setCategories(data.categories);
+        setUserData(data.user_data)
       })
     }
     catch (error) {
