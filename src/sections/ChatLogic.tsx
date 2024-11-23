@@ -1,7 +1,8 @@
 import { useState } from "react";
-import InfoIcon from "../components/info-icon.tsx";
-import ChatBubble from "../components/chat-bubble.tsx";
-import categoryPrompts from "../categoryPrompts.json";
+import InfoIcon from "../components/info-icon.tsx"
+import ChatBubble from "../components/chat-bubble.tsx"
+import categoryPrompts from '../categoryPrompts.json';
+import BirdIdentity from "../components/birdIdentity.tsx";
 
 interface CategoryPrompts {
   [key: string]: string;
@@ -26,30 +27,34 @@ const [hasSentFirstMessage, setHasSentFirstMessage] = useState(false);*/
   summary: string;
 }*/
 
+interface Identification {
+  name: string;
+  picture: string;
+  summary: string;
+  [key: string]: string; 
+}
+
+type Identifications = Identification[];
+
 const Chat: React.FC = () => {
-  // Initialize chat messages to the default greeting (doesn't load the full history on reload)
+
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: "chatbot",
       content: "Hi! Describe the bird you spotted, and I'll try to identify it.",
     },
   ]);
-
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [prompt, setPrompt] = useState("");
-  const [categories, setCategories] = useState({});
-  const [conversationEnded, setConversationEnded] = useState(false);
-  const [hasSentFirstMessage, setHasSentFirstMessage] = useState(false);
+  // const [request, setRequest] = useState({})
+  const [prompt, setPrompt] = useState("")
+  const [categories, setCategories] = useState({})
+  const [imageSrc, setImageSrc] = useState("")
+  const [birdName, SetBirdName] = useState("")
 
   // Handle sending messages
   const handleSend = async () => {
     if (input.trim() === "") return;
-
-    // Mark that the user has sent their first message
-    if (!hasSentFirstMessage) {
-      setHasSentFirstMessage(true);
-    }
 
     const userMessage: Message = { sender: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
@@ -58,35 +63,34 @@ const Chat: React.FC = () => {
     setIsLoading(true);
     const loadingMessage: Message = { sender: "chatbot", content: "..." };
     setMessages((prev) => [...prev, loadingMessage]);
-    //const [userData, setUserData] = useState<any>({});
+    const [userData, setUserData] = useState<any>({});
 
     try {
       await fetch("http://localhost:5000/birds", {
         method: "POST",
         headers: {
-          "Content-Type": "Application/json",
+          "Content-Type": "Application/json"
         },
         body: JSON.stringify({
           "message": userMessage.content,
           "categoryPrompt": prompt,
           "categories": categories,
-//          "user_data": userData,
+          "user_data": userData,
         })
       })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch response");
-    
         return res.json();
       })
       .then((response) => {
         const data = response.data;
         const newPrompt = data.category_prompt;
+        const birdResult: Identifications = data.identifications;
         console.log(newPrompt);
 
-        //const response: ResponseData = await res.json();
         console.log(response);
 
-              // Handle `isConfused`
+        // Handle `isConfused`
         if (response.isConfused) {
           setMessages((prev) => [
             ...prev.slice(0, -1),
@@ -95,47 +99,60 @@ const Chat: React.FC = () => {
               content: "I'm not sure I understand. Could you provide more details?",
             },
           ]);
-        } else if (response.identifications && response.identifications.length > 0) {
-            // Bird identification successful
+        }
+
+        if(birdResult != null) {
+          setImageSrc(birdResult[0].picture);
+          SetBirdName(birdResult[0].name);
+
+          console.log(birdResult[0].summary);
+          console.log(birdResult[0]);
+
+          const summaryKey = Object.keys(birdResult[0]).find(key => key.trim() === 'summary'); 
+          
+          if (summaryKey !== undefined) {
+            setMessages((prev) => [
+              ...prev.slice(0, -1),
+              { 
+                sender: "chatbot", 
+                content: "Based on your description it's possible that you saw a " + birdResult[0].name + ". " + birdResult[0][summaryKey]
+              },
+            ]);
+          } else {
+            console.log("Summary key not found");
+          } 
+        } else {
           setMessages((prev) => [
             ...prev.slice(0, -1),
-            {
-              sender: "chatbot",
-              content: `I think this is a ${response.identifications[0].Name} (${response.identifications[0].LatinName}).`,
-            },
+            { sender: "chatbot", content: data.summary },
           ]);
-          setConversationEnded(true); // Mark conversation as ended --the history will be send 
-        } else {
-        setMessages((prev) => [
-          ...prev.slice(0, -1),
-          { sender: "chatbot", content: data.summary },
-        ]);
         }
+
         setTimeout(() => {
           if (newPrompt != null) {
             setMessages((prev) => [
               ...prev,
               { sender: "chatbot", content: prompts[newPrompt] },
-          ]);
+            ]);
           }
         }, 500);
     
         setPrompt(newPrompt);
         setCategories(data.categories);
-//        setUserData(data.user_data);
-      })
-      } catch (error) {
-        console.error(error);
-        setMessages((prev) => [
-          ...prev.slice(0, -1),
-          {
-            sender: "chatbot",
-            content: "Oops! Something went wrong. Please try again.",
-          },
-        ]);
-      } finally {
-        setIsLoading(false);
-      }
+        setUserData(data.user_data);
+      });
+    } catch (error) {
+      console.error(error);
+      setMessages((prev) => [
+        ...prev.slice(0, -1),
+        {
+          sender: "chatbot",
+          content: "Oops! Something went wrong. Please try again.",
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   //HANDLE history download
@@ -157,45 +174,46 @@ const Chat: React.FC = () => {
     <div className="flex flex-col h-screen w-full">
       <main className="flex justify-center basis-full p-6 bg-gray-200">
         <div className="flex flex-col gap-4 w-full max-w-screen-sm">
-          {messages.map((msg, index) => (
+            {messages.map((msg, index) => (
             <div key={index}>
-              <ChatBubble sender={msg.sender} content={msg.content} />
+                <ChatBubble
+                sender={msg.sender}
+                content={msg.content}
+                />
             </div>
-          ))}
-
-          {/* Display chat history when the conversation ends */}
-
+            ))}
+            {birdName !== "" ? <BirdIdentity
+            imageSrc={imageSrc}
+            birdName={birdName}
+            />: null}
         </div>
-      </main>
-      <footer className="flex flex-col items-center justify-center p-6 border-t-2 shadow-sm">
-        <div className="w-full max-w-screen-sm">
-          {!conversationEnded && !hasSentFirstMessage && (
-            <>
-              <h3 className="font-semibold">For example</h3>
-              <p className="px-2 py-3 rounded-sm bg-gray-100 text-gray-500 italic">
+
+        </main>
+        <footer className="flex justify-center p-6 border-t-2 shadow-sm">
+            <div className="w-full max-w-screen-sm">
+                <h3 className="font-semibold">For example</h3>
+                <p className="px-2 py-3 rounded-sm bg-gray-100 text-gray-500 italic">
                 Small, fluffy, blue bird on my garden feeder
-              </p>
-              <div className="flex gap-2 my-3">
+                </p>
+                <div className="flex gap-2 my-3">
                 <InfoIcon />
                 <div>
-                  <p>What to include in my description</p>
-                  <hr className="w-24 -mt-0.5 border border-sky-500" />
+                    <p>What to include in my description</p>
+                    <hr className="w-24 -mt-0.5 border border-sky-500" />
                 </div>
               </div>
-            </>
-          )}
           <div className="flex items-center mt-2">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
-              disabled={isLoading || conversationEnded}
+              disabled={isLoading}
               className="flex-1 px-6 py-3 border rounded-full border-gray-400 placeholder:text-gray-500"
             />
             <button
               onClick={handleSend}
-              disabled={isLoading || conversationEnded}
+              disabled={isLoading}
               className="ml-4 w-10 h-10 flex items-center justify-center rounded-full"
             >
               <svg className="w-6 h-6" viewBox="0 0 28 28">
