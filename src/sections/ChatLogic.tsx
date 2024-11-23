@@ -61,7 +61,6 @@ const Chat: React.FC = () => {
     setIsLoading(true);
     const loadingMessage: Message = { sender: "chatbot", content: "..." };
     setMessages((prev) => [...prev, loadingMessage]);
-    
 
     try {
       await fetch("http://localhost:5000/birds", {
