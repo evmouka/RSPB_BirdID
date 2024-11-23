@@ -63,7 +63,7 @@ const Chat: React.FC = () => {
     setIsLoading(true);
     const loadingMessage: Message = { sender: "chatbot", content: "..." };
     setMessages((prev) => [...prev, loadingMessage]);
-    const [userData, setUserData] = useState<any>({});
+    // const [userData, setUserData] = useState<any>({});
 
     try {
       await fetch("http://localhost:5000/birds", {
@@ -75,7 +75,7 @@ const Chat: React.FC = () => {
           "message": userMessage.content,
           "categoryPrompt": prompt,
           "categories": categories,
-          "user_data": userData,
+          // "user_data": userData,
         })
       })
       .then((res) => {
@@ -139,7 +139,7 @@ const Chat: React.FC = () => {
     
         setPrompt(newPrompt);
         setCategories(data.categories);
-        setUserData(data.user_data);
+        // setUserData(data.user_data);
       });
     } catch (error) {
       console.error(error);
@@ -189,7 +189,7 @@ const Chat: React.FC = () => {
         </div>
 
         </main>
-        <footer className="flex justify-center p-6 border-t-2 shadow-sm">
+        <footer className="flex justify-center p-6 border-t-2 shadow-sm sticky bottom-0 bg-white">
             <div className="w-full max-w-screen-sm">
                 <h3 className="font-semibold">For example</h3>
                 <p className="px-2 py-3 rounded-sm bg-gray-100 text-gray-500 italic">
