@@ -13,20 +13,6 @@ interface Message {
   content: string;
 }
 
-const prompts: CategoryPrompts = categoryPrompts;
-/*const [prompt, setPrompt] = useState("");
-const [categories, setCategories] = useState({});
-const [conversationEnded, setConversationEnded] = useState(false);
-const [hasSentFirstMessage, setHasSentFirstMessage] = useState(false);*/
-
-/*interface ResponseData {
-  isConfused: boolean;
-  category_prompt: string;
-  identifications: any;
-  categories: Record<string, string>;
-  summary: string;
-}*/
-
 interface Identification {
   name: string;
   picture: string;
@@ -37,7 +23,7 @@ interface Identification {
 type Identifications = Identification[];
 
 const Chat: React.FC = () => {
-
+  const prompts: CategoryPrompts = categoryPrompts;
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: "chatbot",
@@ -54,7 +40,7 @@ const Chat: React.FC = () => {
   const [hasSentFirstMessage, setHasSentFirstMessage] = useState(false);
 
   useEffect(() => {
-    if ( hasSentFirstMessage) {
+    if (hasSentFirstMessage) {
       localStorage.setItem("chatHistory", JSON.stringify(messages));
     }
   }, [messages, hasSentFirstMessage]);
@@ -110,14 +96,12 @@ const Chat: React.FC = () => {
               content: "I'm not sure I understand. Could you provide more details?",
             },
           ]);
-        }
-
-        if(birdResult != null) {
+        } else if(birdResult != null) {
           setImageSrc(birdResult[0].picture);
           SetBirdName(birdResult[0].name);
 
-          console.log(birdResult[0].summary);
-          console.log(birdResult[0]);
+          //console.log(birdResult[0].summary);
+          //console.log(birdResult[0]);
 
           const summaryKey = Object.keys(birdResult[0]).find(key => key.trim() === 'summary'); 
           
@@ -166,37 +150,16 @@ const Chat: React.FC = () => {
     }
   };
 
-  //HANDLE history download
- /* const handleDownloadChatHistory = () => {
-    const chatData = messages
-      .map(
-        (msg) =>
-          `${msg.sender === "user" ? "You" : "Chatbot"}: ${msg.content}`
-      )
-      .join("\n");
-    const blob = new Blob([chatData], { type: "text/plain" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "chat-history.txt";
-    link.click();
-  };*/
-
   return (
     <div className="flex flex-col h-screen w-full">
       <main className="flex justify-center basis-full p-6 bg-gray-200">
         <div className="flex flex-col gap-4 w-full max-w-screen-sm">
             {messages.map((msg, index) => (
             <div key={index}>
-                <ChatBubble
-                sender={msg.sender}
-                content={msg.content}
-                />
+                <ChatBubble sender={msg.sender} content={msg.content} />
             </div>
             ))}
-            {birdName !== "" ? <BirdIdentity
-            imageSrc={imageSrc}
-            birdName={birdName}
-            />: null}
+            {birdName && <BirdIdentity imageSrc={imageSrc} birdName={birdName}/>}
         </div>
 
         </main>
@@ -241,6 +204,7 @@ const Chat: React.FC = () => {
           </div>
         </div>
       </footer>
+      </main>
     </div>
   );
 };
