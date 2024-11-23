@@ -1,3 +1,4 @@
+// import BirdResult from "./sections/bird_result";
 import Chat from "./sections/ChatLogic"
 import Header from "./sections/header"
 
