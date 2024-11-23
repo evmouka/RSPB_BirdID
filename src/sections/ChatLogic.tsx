@@ -187,6 +187,9 @@ const Chat: React.FC = () => {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSend();
+            }}
             placeholder="Type your message..."
             disabled={isLoading}
             className="flex-1 px-6 py-3 border rounded-full border-gray-400 placeholder:text-gray-500"
