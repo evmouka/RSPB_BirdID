@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InfoIcon from "../components/info-icon.tsx"
 import ChatBubble from "../components/chat-bubble.tsx"
 import categoryPrompts from '../categoryPrompts.json';
@@ -51,10 +51,21 @@ const Chat: React.FC = () => {
   const [categories, setCategories] = useState({})
   const [imageSrc, setImageSrc] = useState("")
   const [birdName, SetBirdName] = useState("")
+  const [hasSentFirstMessage, setHasSentFirstMessage] = useState(false);
+
+  useEffect(() => {
+    if ( hasSentFirstMessage) {
+      localStorage.setItem("chatHistory", JSON.stringify(messages));
+    }
+  }, [messages, hasSentFirstMessage]);
 
   // Handle sending messages
   const handleSend = async () => {
     if (input.trim() === "") return;
+
+    if (!hasSentFirstMessage) {
+      setHasSentFirstMessage(true);
+    }
 
     const userMessage: Message = { sender: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
@@ -191,6 +202,8 @@ const Chat: React.FC = () => {
         </main>
         <footer className="flex justify-center p-6 border-t-2 shadow-sm sticky bottom-0 bg-white">
             <div className="w-full max-w-screen-sm">
+            { !hasSentFirstMessage && (
+              <>
                 <h3 className="font-semibold">For example</h3>
                 <p className="px-2 py-3 rounded-sm bg-gray-100 text-gray-500 italic">
                 Small, fluffy, blue bird on my garden feeder
@@ -202,6 +215,8 @@ const Chat: React.FC = () => {
                     <hr className="w-24 -mt-0.5 border border-sky-500" />
                 </div>
               </div>
+              </>
+            )}
           <div className="flex items-center mt-2">
             <input
               type="text"
