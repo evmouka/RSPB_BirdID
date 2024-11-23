@@ -19,6 +19,7 @@ interface ResponseData {
   category_prompt: string;
   identifications: any;
   categories: Record<string, string>;
+  summary: string;
 }
 
 const Chat: React.FC = () => {
@@ -46,38 +47,40 @@ const Chat: React.FC = () => {
     const loadingMessage: Message = { sender: "chatbot", content: "..." };
     setMessages((prev) => [...prev, loadingMessage]);
 
-    try{
+    try {
       await fetch("http://localhost:5000/birds", {
         method: "POST",
         headers: {
           "Content-Type": "Application/json"
         },
         body: JSON.stringify({
-          "message": userMessage,
+          "message": userMessage.content,
           "categoryPrompt": prompt,
           "categories": categories
+        })
       })
-      }).then((res) => {
-      if (!res.ok) throw new Error("Failed to fetch response");
-
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch response");
+    
         return res.json();
       })
       .then((response) => {
-        const data: ResponseData = response.data
-        console.log(data)
-        let prompt = data.category_prompt
-        if(prompt == "beak shape"){
-          prompt = "Beak Shape 1"
-        }
-        console.log(prompt)
-
+        const data = response.data;
+        const newPrompt = data.category_prompt;
+    
         setMessages((prev) => [
           ...prev.slice(0, -1),
-          { sender: "chatbot", content: prompts[prompt] },
+          { sender: "chatbot", content: data.summary },
         ]);
-        console.log(messages);
-
-        setPrompt(prompt);
+    
+        setTimeout(() => {
+          setMessages((prev) => [
+            ...prev,
+            { sender: "chatbot", content: prompts[newPrompt] },
+          ]);
+        }, 1000);
+    
+        setPrompt(newPrompt);
         setCategories(data.categories);
       })
     }
