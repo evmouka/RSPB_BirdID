@@ -38,6 +38,7 @@ const Chat: React.FC = () => {
   const [imageSrc, setImageSrc] = useState("")
   const [birdName, SetBirdName] = useState("")
   const [hasSentFirstMessage, setHasSentFirstMessage] = useState(false);
+  const [userData, setUserData] = useState<any>("");
 
   useEffect(() => {
     if (hasSentFirstMessage) {
@@ -60,7 +61,7 @@ const Chat: React.FC = () => {
     setIsLoading(true);
     const loadingMessage: Message = { sender: "chatbot", content: "..." };
     setMessages((prev) => [...prev, loadingMessage]);
-    // const [userData, setUserData] = useState<any>({});
+    
 
     try {
       await fetch("http://localhost:5000/birds", {
@@ -100,7 +101,7 @@ const Chat: React.FC = () => {
           setImageSrc(birdResult[0].picture);
           SetBirdName(birdResult[0].name);
 
-          //console.log(birdResult[0].summary);
+          console.log(birdResult[0].summary);
           //console.log(birdResult[0]);
 
           const summaryKey = Object.keys(birdResult[0]).find(key => key.trim() === 'summary'); 
@@ -163,7 +164,7 @@ const Chat: React.FC = () => {
         </div>
       </main>
   
-      <footer className="flex flex-col justify-center p-6 border-t-2 shadow-sm sticky bottom-0 bg-white">
+      <footer className="flex justify-center p-6 border-t-2 shadow-sm sticky bottom-0 bg-white">
         <div className="w-full max-w-screen-sm">
           {!hasSentFirstMessage && (
             <>
@@ -180,7 +181,7 @@ const Chat: React.FC = () => {
               </div>
             </>
           )}
-        </div>
+        
         <div className="flex items-center mt-2">
           <input
             type="text"
@@ -202,6 +203,7 @@ const Chat: React.FC = () => {
               />
             </svg>
           </button>
+        </div>
         </div>
       </footer>
     </div>
