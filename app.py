@@ -5,36 +5,57 @@ from algo import find_bird, fetch_db
 from claude_1a import claude_1
 from utils import update_and_join
 from claude_summary import claude_summary
+from formatData import formatData, save_user_data
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 def process_bird_data(json_data):
     request_data = Guess(
+        id=0,
         message=json_data["message"],
         category_prompt=json_data["categoryPrompt"],
-        categories=json_data["categories"]
+        categories=json_data["categories"],
+        user_data=json_data["user_data"]
     )
-
+    #claude interpret input
     dic = claude_1(request_data.message, request_data.category_prompt)
     dic =  dic["bird_sighting"]
     if not dic:
         dic = {}
-    dic = update_and_join(request_data.categories, dic)
+
+    #join new to old dic
+    dic = update_and_join(dic, request_data.categories)
+    if dic == request_data.categories and request_data.category_prompt:
+        dic[request_data.category_prompt] = None
+
     algo_dic = dic.copy()
+    new_feature = None
     if "new_attribute" in dic:
+        new_feature = algo_dic["new_attribute"]
         del algo_dic["new_attribute"]
-    isConfused = False
-    if not isConfused:
-        question, birds = find_bird(algo_dic)
-    summary = claude_summary(algo_dic)
-    print(summary)
+
+    #find next best question + filtering
+    question, birds, error = find_bird(algo_dic, request_data.id)
+    
+    #get sumamry from claude
+    if algo_dic:
+        summary = claude_summary(algo_dic)
+    else:
+        summary = "We couldn't manage to get any informations from your input"
+    
+    user_data = formatData(algo_dic, new_feature, request_data.message, request_data.user_data, error)
+
+    if birds or not question or error:
+        save_user_data(user_data, birds)
+
     response_data = Answer(
-        isConfused =isConfused,
+        isConfused = False,
         category_prompt = question,
         identifications = birds,
         categories =  dic,
-        summary = summary
+        summary = summary,
+        user_data = user_data
     )
     return response_data
 
@@ -53,16 +74,13 @@ def birds():
 
     else:
         return jsonify({'error': 'Method not allowed'}), 405
-    
-@app.route('/summary', methods=['POST'])
-def summary():
-    if request.method == 'POST':
-        data = request.get_json()
 
-        if not data:
-            return jsonify('erorr: No JSON data provided')
-
-        return jsonify("request accepted"), 202
+@app.route('/new-bird', methods=['GET'])
+def get_bird():
+    if request.method == 'GET':
+        bird = fetch_db(None, None, True)
+        return jsonify({"id": bird['species_number'], "image": bird['picture']})
+    return jsonify({'error': 'Method not allowed'}), 405
 
 if __name__ == '__main__':
     app.run(port=5000)

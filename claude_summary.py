@@ -10,6 +10,7 @@ def claude_summary(cat: dict) -> str:
 
     follow these rules:
     -Give me only the summary without any other text
+    -If the category is empty dont mention it at all
     -use the exact words used in the json but make the rest nice and custom
     -wrap every word that are used in the value of the json with <>
 
@@ -25,6 +26,8 @@ JSON input:
 ]
 would give this output:
 This bird is <small> in size, with a plumage of <orange>, <pink>, <grey>, <black>, and <white> colors. It has a <black stripe> marking. It typically inhabits <woodland> areas.
+
+Don't hesitate to modify this example to make it feel more custom without changing the words in brackets
 """
 
     message = client.messages.create(

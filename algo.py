@@ -112,13 +112,33 @@ def fetch_db(querry: str, params: list, isGame: bool=False) -> list:
         return random.choice(result)
     return result
 
-def find_bird(dic: dict):
+def find_error(bird, dic):
+    exclusions = []
+    
+    for key, value in dic.items():
+        # Check if the filter value matches the bird's characteristic
+        if bird.get(key) != value:
+            exclusions.append({
+                "category": key,
+                "adjective": value,
+                "bird_value": bird.get(key),
+            })
+    
+    return exclusions
+
+def find_bird(dic: dict, id: int):
+    error = None
     query, params = create_querry("birdInfo", dic)
     birds = fetch_db(query, params)
+    if id:
+        id_exists = any(d.get("id") == id for d in birds)
+        if not id_exists:
+            bird = fetch_db("select * from birdInfo where species_number=?", [id])
+            error = find_error(bird, dic)
     if len(birds) == 1:
-        return None, birds
+        return None, birds, error
     bird = BirdIdentifier(birds, dic)
     question, bird = bird.find_best_question()
 
-    return question, bird
+    return question, bird, error
 

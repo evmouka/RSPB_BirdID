@@ -1,8 +1,10 @@
 class Guess:
-    def __init__(self, message, category_prompt, categories):
+    def __init__(self, message, category_prompt, categories, user_data, id):
+        self.id = id
         self.message = message
         self.category_prompt = category_prompt
         self.categories = categories
+        self.user_data = user_data
 
     def display(self):
         print(f"Message: {self.message}")

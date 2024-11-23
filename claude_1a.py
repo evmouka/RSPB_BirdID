@@ -52,11 +52,8 @@ Here are some important rules to follow:
 This is a very important rule:
 -If the input or part of it dont match with any categories nor adjective but is relevant to bird identification add a dict with a new entry tagged as <new_attribute> with your interpretation of this new characteristic
 
-refinements:
-if input mentions tiny size output <size>extra small</size>
-
 Here are some examples:
-user input: it was in my garden and singing super loudly adn was quite fast
+user input: it was in my garden and singing super loudly and was quite fast
 the output:
 <bird_sighting>
     <habitat>garden</habitat>
@@ -91,13 +88,8 @@ the output:
     )
     
     xml_string = message.content[0].text if isinstance(message.content, list) else message.content.text
-    print(xml_string)
     xml_dict = xmltodict.parse(xml_string)
     json_dict = json.loads(json.dumps(xml_dict))
-    
-    # Print for verification
-    print("\nJSON Output:")
-    print(json.dumps(json_dict, indent=2))
     
     return json_dict
     
