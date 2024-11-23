@@ -163,7 +163,7 @@ const Chat: React.FC = () => {
         </div>
       </main>
   
-      <footer className="flex flex-col justify-center p-6 border-t-2 shadow-sm sticky bottom-0 bg-white">
+      <footer className="flex justify-center p-6 border-t-2 shadow-sm sticky bottom-0 bg-white">
         <div className="w-full max-w-screen-sm">
           {!hasSentFirstMessage && (
             <>
@@ -180,7 +180,7 @@ const Chat: React.FC = () => {
               </div>
             </>
           )}
-        </div>
+        
         <div className="flex items-center mt-2">
           <input
             type="text"
@@ -202,6 +202,7 @@ const Chat: React.FC = () => {
               />
             </svg>
           </button>
+        </div>
         </div>
       </footer>
     </div>
