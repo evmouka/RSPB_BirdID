@@ -17,7 +17,7 @@ interface Identification {
   name: string;
   picture: string;
   summary: string;
-  [key: string]: string; 
+  user_data: any;
 }
 
 type Identifications = Identification[];
@@ -72,7 +72,7 @@ const Chat: React.FC = () => {
           "message": userMessage.content,
           "categoryPrompt": prompt,
           "categories": categories,
-          // "user_data": userData,
+          "user_data": userData,
         })
       })
       .then((res) => {
@@ -134,10 +134,10 @@ const Chat: React.FC = () => {
     
         setPrompt(newPrompt);
         setCategories(data.categories);
-        // setUserData(data.user_data);
-      });
-    } catch (error) {
-      console.error(error);
+        setUserData(data.user_data);
+      })
+    }
+    catch (error) {
       setMessages((prev) => [
         ...prev.slice(0, -1),
         {
