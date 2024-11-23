@@ -1,14 +1,15 @@
 import pandas as pd
 import sqlite3
+import random
 
 class BirdIdentifier:
     def __init__(self, birds_df, dic):
         self.birds = pd.DataFrame.from_dict(birds_df)
         self.curr_dic = dic
         self.features = [
-            "Plumage colour(s)", "Beak Colour(s)", "Feet colour(s)", 
-            "Leg colour(s)", "Beak Shape 1", "Tail shape 1", 
-            "Size", "Habitat(s)"
+            "plumage_colour", "beak_Colour", "feet_colour", 
+            "leg_colour", "beak_Shape_1", "tail_shape_1", 
+            "size", "habitat", "pattern_markings"
         ]
 
     def can_feature_split_further(self, current_birds, feature):
@@ -74,6 +75,8 @@ class BirdIdentifier:
         best_feature = self.find_best_feature(current_birds, used_features)
         if best_feature:
             self.birds = None
+        else:
+            self.birds = self.birds.to_dict(orient='records')
         return best_feature, self.birds
 
 def create_querry(dbName: str, dic: dict) -> str:
@@ -89,26 +92,33 @@ def create_querry(dbName: str, dic: dict) -> str:
             conditions.append(f"{key} LIKE ?")
             params.append(f"%{item}%")      
         if conditions:
-            query += f" AND ({' AND '.join(conditions)})"
+            query += f" AND ({' AND '.join(conditions)} OR {key} IS NULL)"
     return query, params 
 
-def fetch_db(querry: str, params: list) -> list:
+def fetch_db(querry: str, params: list, isGame: bool=False) -> list:
     db = sqlite3.connect('bird_database.db')
     cursor = db.cursor()
-    cursor.execute(querry, params)
+    if isGame:
+        cursor.execute("select * from birdInfo")
+    else:
+        cursor.execute(querry, params)
     rows = cursor.fetchall()
     column_names = [desc[0] for desc in cursor.description]
     
     result = [dict(zip(column_names, row)) for row in rows]
     
     db.close()
+    if isGame:
+        return random.choice(result)
     return result
 
-def find_bird(dic):
+def find_bird(dic: dict):
     query, params = create_querry("birdInfo", dic)
     birds = fetch_db(query, params)
     if len(birds) == 1:
         return None, birds
     bird = BirdIdentifier(birds, dic)
     question, bird = bird.find_best_question()
+
     return question, bird
+

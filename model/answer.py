@@ -1,9 +1,10 @@
 class Answer:
-    def __init__(self, isConfused, category_prompt, identifications, categories):
+    def __init__(self, isConfused, category_prompt, identifications, categories, summary):
         self.isConfused = isConfused
         self.category_prompt = category_prompt
         self.identifications = identifications
         self.categories = categories
+        self.summary = summary
 
     def to_dict(self):
         return {
@@ -11,7 +12,8 @@ class Answer:
             "category_prompt": self.category_prompt,
             "categories": self.categories,
             "identifications": self.identifications,
-            "categories": self.categories
+            "categories": self.categories,
+            "summary": self.summary
         }
 
 class Identification:
