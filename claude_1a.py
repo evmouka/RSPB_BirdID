@@ -88,8 +88,11 @@ the output:
     )
     
     xml_string = message.content[0].text if isinstance(message.content, list) else message.content.text
-    xml_dict = xmltodict.parse(xml_string)
-    json_dict = json.loads(json.dumps(xml_dict))
+    try:
+        xml_dict = xmltodict.parse(xml_string)
+        json_dict = json.loads(json.dumps(xml_dict))
+    except:
+        return {"bird_sighting": {}}
     
     return json_dict
     
