@@ -163,7 +163,7 @@ const Chat: React.FC = () => {
         </div>
       </main>
   
-      <footer className="flex justify-center p-6 border-t-2 shadow-sm sticky bottom-0 bg-white">
+      <footer className="flex flex-col justify-center p-6 border-t-2 shadow-sm sticky bottom-0 bg-white">
         <div className="w-full max-w-screen-sm">
           {!hasSentFirstMessage && (
             <>
