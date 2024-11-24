@@ -134,7 +134,7 @@ def find_bird(dic: dict, id: int):
         if not id_exists:
             bird = fetch_db("select * from birdInfo where species_number=?", [id])
             error = find_error(bird, dic)
-    if len(birds) == 1:
+    if len(birds) < 3:
         return None, birds, error
     bird = BirdIdentifier(birds, dic)
     question, bird = bird.find_best_question()
