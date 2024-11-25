@@ -8,6 +8,54 @@ class BirdIdentifier:
         self.curr_dic = dic
         self.features = features
 
+    def calculate_match_percentage(self, bird: dict) -> float:
+        """
+        Calculate match percentage considering db values are comma-separated strings
+        and current dictionary values are arrays.
+        """
+        total_features = 0
+        matched_features = 0
+        
+        for feature, curr_values in self.curr_dic.items():
+            if feature not in self.features:
+                continue
+                
+            total_features += 1
+            
+            if feature in bird and not pd.isna(bird[feature]):
+                bird_values = set(v.strip().lower() for v in bird[feature].split(','))
+                
+                if isinstance(curr_values, list):
+                    curr_values_set = set(v.lower() for v in curr_values)
+                else:
+                    curr_values_set = {curr_values.lower()}
+                
+                if bird_values & curr_values_set:
+                    matched_features += 1
+                        
+        if total_features == 0:
+            return 0
+        return (matched_features / total_features) * 100
+
+    def get_best_matches(self, threshold: float = 0) -> list:
+        """
+        Return all birds with their match percentages, sorted by best match.
+        Optional threshold parameter to filter out low matches.
+        """
+        matches = []
+        current_birds = self.birds.to_dict(orient='records')
+        
+        for bird in current_birds:
+            match_percentage = self.calculate_match_percentage(bird)
+            matches.append({
+                'name': bird['name'],
+                'match_percentage': round(match_percentage, 2),
+                # 'bird_data': bird
+            })
+        
+        matches.sort(key=lambda x: x['match_percentage'], reverse=True)
+        return matches[:5]
+
     def can_feature_split_further(self, current_birds: list, feature: str) -> bool:
         possible_values = self.get_possible_values(current_birds, feature)
         current_size = len(current_birds)
@@ -71,7 +119,5 @@ class BirdIdentifier:
         used_features = list(self.curr_dic.keys())
         best_feature = self.find_best_feature(current_birds, used_features)
         if best_feature:
-            self.birds = None
-        else:
-            self.birds = self.birds.to_dict(orient='records')
-        return best_feature, self.birds
+            return best_feature, None
+        return best_feature, self.birds.to_dict(orient='records')
