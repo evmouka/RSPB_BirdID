@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-from model import Guess, Answer
+from model.guess import Guess
+from model.answer import Answer
 from flask_cors import CORS, cross_origin
 from src.filter import find_bird, fetch_db
 from src.claude_1a import claude_1

@@ -21,6 +21,10 @@ services:
       DB_NAME: ${POSTGRES_DB}
     depends_on:
       - db
+    tty: true
+    stdin_open: true
+    init: true
+    command: gunicorn -w 4 -b 0.0.0.0:5000 app:app
 
   db:
     image: postgres:14

@@ -58,5 +58,5 @@ CREATE TABLE birdInfo (
     # "Pattern/ Markings" TEXT,
 
 # cursor.execute(create_table_sql)
-birdlist = pd.read_json("./bird_data.json")
+birdlist = pd.read_json("./data/bird_data.json")
 birdlist.to_sql('BirdInfo', db, index=False)

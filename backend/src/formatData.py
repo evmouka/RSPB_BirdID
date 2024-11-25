@@ -9,7 +9,7 @@ def calculate_average(conversations):
 
 def formatData(categories, user_input, current_data, error=None):
     if not current_data:
-        with open('blankData.json', 'r') as file:
+        with open('data/blankData.json', 'r') as file:
             current_data = json.load(file)
     if 'new_attribute' in categories:
         new_attribute = categories['new_attribute']
@@ -33,10 +33,10 @@ def save_user_data(data, suggestions):
     data['app_response']['suggestions'] = [entry['name'] for entry in suggestions if 'name' in entry]
     data['user_data']['average_message_length'] = calculate_average(data['user_data']['conversation'])
     if os.path.exists('user_data.json'):
-        with open('user_data.json', "r") as file:
+        with open('data/user_data.json', "r") as file:
             database = json.load(file)
         database.append(data)
     else:
         database = [data]
-    with open('user_data.json', "w") as file:
+    with open('data/user_data.json', "w") as file:
         json.dump(database, file, indent=4)
