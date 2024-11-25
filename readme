@@ -1,0 +1,37 @@
+# Bird Identification Chatbot
+
+This project is a chatbot designed to help identify birds based on user descriptions. It allows users to describe a bird they've spotted, and the bot will attempt to identify it, providing the option to select from a list of possible matches.
+
+## Installation Instructions
+
+To get started with the project, follow these steps:
+
+1. **Clone the Repository**  
+   First, clone the repository to your local machine:
+
+```bash
+git clone <repository_url>
+```
+   
+2. **Install Dependencies**
+Navigate to the project directory and install the required dependencies using npm:
+```bash
+cd <project_directory>
+npm install
+```
+
+3. **Run the Development Server**
+Once the dependencies are installed, start the development server:
+
+```bash
+npm run dev
+```
+
+## Available Pages
+
+At the moment, the app supports two pages:
+
+    /chat: The main chat interface where users can describe a bird they spotted, and the chatbot will attempt to identify it.
+    /result: After selecting or identifying a bird, users can view detailed information about the identified bird.
+
+Note: The home page is not yet integrated, so users will be redirected to /chat directly.
