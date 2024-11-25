@@ -3,39 +3,62 @@
         "app_response": {
             "correct": true,
             "suggestions": [
-                "blue tit (adult)",
-                "magpie",
+                "wood pigeon (adult)",
+                "chaffinch (female)",
                 "chaffinch (male)",
-                "jackdaw",
-                "wood pigeon (adult)"
+                "collared dove",
+                "jackdaw"
             ]
         },
         "user_data": {
-            "average_message_length": 1.3333333333333333,
+            "average_message_length": 2.25,
             "conversation": [
                 {
                     "categories_described": {
-                        "plumage_colour": "blue"
+                        "plumage_colour": [
+                            "grey",
+                            "black"
+                        ]
                     },
-                    "length": 2,
+                    "length": 4,
                     "new_attribute": {},
-                    "text": "blue bird"
+                    "text": "grey and black bird"
                 },
                 {
                     "categories_described": {
-                        "plumage_colour": "blue",
-                        "tail_shape_1": "forked"
+                        "plumage_colour": [
+                            "grey",
+                            "black"
+                        ],
+                        "tail_shape_1": null
+                    },
+                    "length": 3,
+                    "new_attribute": {},
+                    "text": "i dont know"
+                },
+                {
+                    "categories_described": {
+                        "plumage_colour": [
+                            "grey",
+                            "black"
+                        ],
+                        "size": "medium",
+                        "tail_shape_1": null
                     },
                     "length": 1,
                     "new_attribute": {},
-                    "text": "fork"
+                    "text": "medium"
                 },
                 {
-                    "text": "black",
+                    "text": "orange",
                     "categories_described": {
-                        "leg_colour": "black",
-                        "plumage_colour": "blue",
-                        "tail_shape_1": "forked"
+                        "beak_colour": "orange",
+                        "plumage_colour": [
+                            "grey",
+                            "black"
+                        ],
+                        "size": "medium",
+                        "tail_shape_1": null
                     },
                     "new_attribute": {},
                     "length": 1

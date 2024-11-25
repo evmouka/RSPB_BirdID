@@ -25,7 +25,7 @@ class BirdIdentifier:
 
             total_features += 1
 
-            if feature not in bird or pd.isna(bird[feature]):
+            if feature not in bird or pd.isna(bird[feature]) or not curr_values:
                 matched_features += 1
             else:
                 bird_values = set(v.strip().lower() for v in bird[feature].split(','))

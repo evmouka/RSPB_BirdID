@@ -1,4 +1,4 @@
-# Define some variables for convenience
+
 DOCKER_COMPOSE = docker-compose
 DOCKER_COMPOSE_FILE = -f docker-compose.yml
 BUILD = $(DOCKER_COMPOSE) $(DOCKER_COMPOSE_FILE) build

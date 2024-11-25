@@ -45,7 +45,7 @@ def hard_summary(user_input):
 
     summary = []
     for category, adjectives in user_input.items():
-        if category in templates:
+        if category in templates and adjectives:
             if type(adjectives) == list:
                 formatted_adjectives = ", ".join(f"<{adj}>" for adj in adjectives)
             else:
