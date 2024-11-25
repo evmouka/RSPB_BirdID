@@ -22,6 +22,8 @@ cd 42Hackathon_RSPB
 make
 ```
 
+3. Navigate to http://localhost:3000/ on your browser.
+
 ## Usage
 
 The project uses a Makefile to simplify Docker operations. Here are the available commands:
@@ -45,9 +47,9 @@ To start the application for the first time:
 make all
 ```
 
-To view the application logs:
+To copy the data to the local directory:
 ```bash
-make logs
+make copy
 ```
 
 ## Docker Services
