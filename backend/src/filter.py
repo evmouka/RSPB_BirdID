@@ -1,7 +1,7 @@
 import sqlite3
 import psycopg2
 import random
-from deterministic import BirdIdentifier
+from src.deterministic import BirdIdentifier
 # from statistic import ProbabilisticBirdIdentifier
 import os
 
