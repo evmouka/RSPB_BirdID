@@ -1,0 +1,11 @@
+{
+    "user_data": {
+      "conversation": [],
+      "average_message_length": 0,
+      "error": null
+    },
+    "app_response": {
+      "suggestions": null,
+      "correct": true
+    }
+}

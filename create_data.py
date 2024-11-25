@@ -1,6 +1,5 @@
 import pandas as pd
 import sqlite3
-import random
 import psycopg2
 from psycopg2 import sql
 
