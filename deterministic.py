@@ -37,10 +37,9 @@ class BirdIdentifier:
             return 0
         return (matched_features / total_features) * 100
 
-    def get_best_matches(self, threshold: float = 0) -> list:
+    def get_best_matches(self) -> list:
         """
         Return all birds with their match percentages, sorted by best match.
-        Optional threshold parameter to filter out low matches.
         """
         matches = []
         current_birds = self.birds.to_dict(orient='records')
@@ -57,6 +56,7 @@ class BirdIdentifier:
         return matches[:5]
 
     def can_feature_split_further(self, current_birds: list, feature: str) -> bool:
+        """this function checks if a feature can help filter further"""
         possible_values = self.get_possible_values(current_birds, feature)
         current_size = len(current_birds)
         
@@ -67,10 +67,12 @@ class BirdIdentifier:
         return False
     
     def filter_birds(self, current_birds: list, feature: str, value: str) -> list:
+        """this function filters birds based on a feature and its value"""
         return [bird for bird in current_birds 
                 if pd.isna(bird.get(feature)) or value in bird.get(feature, '')]
     
     def find_best_feature(self, current_birds: list, used_features: list) -> str:
+        """this function finds the best feature to filter on"""
         best_score = float('inf')
         best_feature = None
         
@@ -107,6 +109,7 @@ class BirdIdentifier:
         return best_feature
 
     def get_possible_values(self, birds_subset: list, feature: str) -> set:
+        """this function returns all possible values for a feature"""
         values = set()
         for bird in birds_subset:
             if feature in bird and not pd.isna(bird[feature]):
@@ -115,6 +118,7 @@ class BirdIdentifier:
         return values
 
     def find_best_question(self) -> tuple:
+        """this function finds the best question to ask"""
         current_birds = self.birds.copy().to_dict(orient='records')
         used_features = list(self.curr_dic.keys())
         best_feature = self.find_best_feature(current_birds, used_features)

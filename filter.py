@@ -63,12 +63,12 @@ def find_bird(dic: dict, birds_left:int, features: list,  id: int) -> tuple:
 
     birdId = BirdIdentifier(birds, dic, features)
     if len(birds) < birds_left:
-        matches = birdId.get_best_matches(50)
+        matches = birdId.get_best_matches()
         print(matches)
         return None, birds, error
 
     question, bird = birdId.find_best_question()
-    matches = birdId.get_best_matches(50)
+    matches = birdId.get_best_matches()
     print(matches)
 
     return question, bird, error
