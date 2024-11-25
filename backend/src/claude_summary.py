@@ -5,31 +5,31 @@ def claude_summary(cat: dict) -> str:
     if 'new_attribute' in cat:
         del cat['new_attribute']
     prompt = f"""
-    I have some bird characteristic in form of json. I want you to make a nice summary of the current description. 
-    Here is the json:
+    Your task is to transform technical data into a friendly, informative description. Use variety in your descriptions. Use different adjectives to describe key features. Be vreative.
+
+    Here's the bird data you need to summarize in JSON format:
     {cat}
 
-    follow these rules:
-    -Give me only the summary without any other text
-    -If the category is empty dont mention it at all
-    -use the exact words used in the json but make the rest nice and custom
-    -wrap every word that are used in the value of the json with <>
+    Please follow these steps to create your summary:
+    1. Carefully read and parse the JSON data provided.
+    2. Consider how to make the description engaging and conversational.
+    3. Create a summary based on your analysis, adhering to these rules:
+   - Use the exact words from the JSON values, wrapping them in <> tags.
+   - Craft a conversational and varied paragraph structure.
+   - Incorporate engaging descriptors and maintain a friendly tone.
+   - Ensure the summary flows naturally and is pleasant to read aloud.
 
-    here is an example:
-JSON input:
-[
-  "bird_sighting": [
-    "size": "small",
-    "plumage_colour": "orange, pink, grey, black, white",
-    "pattern_markings": "black stripe",
-    "habitat": "woodland"
-  ]
-]
-would give this output:
-This bird is <small> in size, with a plumage of <orange>, <pink>, <grey>, <black>, and <white> colors. It has a <black stripe> marking. It typically inhabits <woodland> areas.
+    Your final output should be a single paragraph without any additional text or explanations.
 
-Don't hesitate to modify this example to make it feel more custom without changing the words in brackets
-"""
+    Example output structure 1 (using generic terms):
+    This delightful <size> bird boasts a stunning plumage of <color1>, <color2>, and <color3>. Its most striking feature is its <pattern> pattern, which <interesting fact about the pattern>. You're most likely to spot this feathered friend in <habitat> areas, where it <typical behavior>.
+    
+    Example structure 2 using more creative terms:
+    This charming <extra small> songbird catches the eye with its graceful <long> <black> beak, perfect for probing delicate blossoms. Its feathers showcase a beautiful blend of <pink, brown> hues, creating a subtle yet striking appearance that sets it apart from its forest companions. Adding to its elegant profile is a sweeping <long> tail that trails behind as it flits through the branches. Listen closely for its <cheerful> calls that ring through the air like tiny bells, bringing life and joy to its surroundings.
+
+    Remember, this is just an example structure. Feel free to be creative in your composition while maintaining accuracy and using the provided data.
+    Vary your description each time.
+    """
 
     message = client.messages.create(
         model="claude-3-5-sonnet-20241022",
