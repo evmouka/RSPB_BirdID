@@ -1,0 +1,47 @@
+[
+    {
+        "app_response": {
+            "correct": true,
+            "suggestions": [
+                "blue tit (adult)",
+                "magpie",
+                "chaffinch (male)",
+                "jackdaw",
+                "wood pigeon (adult)"
+            ]
+        },
+        "user_data": {
+            "average_message_length": 1.3333333333333333,
+            "conversation": [
+                {
+                    "categories_described": {
+                        "plumage_colour": "blue"
+                    },
+                    "length": 2,
+                    "new_attribute": {},
+                    "text": "blue bird"
+                },
+                {
+                    "categories_described": {
+                        "plumage_colour": "blue",
+                        "tail_shape_1": "forked"
+                    },
+                    "length": 1,
+                    "new_attribute": {},
+                    "text": "fork"
+                },
+                {
+                    "text": "black",
+                    "categories_described": {
+                        "leg_colour": "black",
+                        "plumage_colour": "blue",
+                        "tail_shape_1": "forked"
+                    },
+                    "new_attribute": {},
+                    "length": 1
+                }
+            ],
+            "error": null
+        }
+    }
+]

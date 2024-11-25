@@ -19,9 +19,43 @@ def update_and_join(dict1: dict, dict2: dict) -> dict:
 
     return dict1
 
+def hard_summary(user_input):
+    """
+    Summarizes the current guess with custom sentences for each category.
+
+    Parameters:
+        categories (list): List of predefined categories.
+        user_input (dict): Dictionary containing categories and their values (list of adjectives).
+
+    Returns:
+        str: A summary sentence combining all provided categories.
+    """
+
+    templates = {
+        "plumage_colour": "The bird has a plumage that is described as {}.",
+        "beak_colour": "Its beak is coloured {}.",
+        "feet_colour": "The feet of the bird appear {}.",
+        "leg_colour": "Its legs are {}.",
+        "beak_shape_1": "The beak is shaped {}.",
+        "tail_shape_1": "It has a tail that is {}.",
+        "pattern_markings": "There are visible markings or patterns described as {}.",
+        "size": "The bird is {} in size.",
+        "habitat": "It is commonly found in habitats described as {}."
+    }
+
+    summary = []
+    for category, adjectives in user_input.items():
+        if category in templates:
+            if type(adjectives) == list:
+                formatted_adjectives = ", ".join(f"<{adj}>" for adj in adjectives)
+            else:
+                formatted_adjectives = f"<{adjectives}>"
+            summary.append(templates[category].format(formatted_adjectives))
+    return " ".join(summary)
+
+
 def server_setup(key_features: list) -> dict:
     query = f"SELECT {', '.join(key_features)} FROM birdInfo"
-
     db = sqlite3.connect(os.getenv('POSTGRES_DB'))
     cursor = db.cursor()
     cursor.execute(query)

@@ -1,7 +1,7 @@
 import sqlite3
 import psycopg2
 import random
-from src.deterministic import BirdIdentifier
+from src.algo import BirdIdentifier
 # from statistic import ProbabilisticBirdIdentifier
 import os
 
@@ -50,9 +50,10 @@ def find_error(bird: dict, dic: dict) -> list:
     
     return exclusions
 
-def find_bird(dic: dict, birds_left:int, features: list,  id: int) -> tuple:
+def find_bird(dic: dict, birds_left:int, features: list,  id: int, match_count: int) -> tuple:
     query, params = create_querry("birdInfo", dic)
     birds = fetch_db(query, params)
+    all_birds = fetch_db("select * from birdInfo", [])
     error = None
     #if game
     if not id == -1:
@@ -61,14 +62,9 @@ def find_bird(dic: dict, birds_left:int, features: list,  id: int) -> tuple:
             bird = fetch_db("select * from birdInfo where species_number=?", [id])
             error = find_error(bird, dic)
 
-    birdId = BirdIdentifier(birds, dic, features)
-    if len(birds) < birds_left:
+    birdId = BirdIdentifier(birds, all_birds, dic, features, match_count)
+    question = birdId.find_best_question()
+    if len(birds) < 2 or not question:
         matches = birdId.get_best_matches()
-        print(matches)
-        return None, birds, error
-
-    question, bird = birdId.find_best_question()
-    matches = birdId.get_best_matches()
-    print(matches)
-
-    return question, bird, error
+        return None, error, matches
+    return question, error, None

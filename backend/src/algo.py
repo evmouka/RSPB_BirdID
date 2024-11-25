@@ -3,36 +3,41 @@ import sqlite3
 import random
 
 class BirdIdentifier:
-    def __init__(self, birds_df: dict, dic: dict, features: list):
+    def __init__(self, birds_df: list, all_birds: list, dic: dict, features: list, matches: int):
         self.birds = pd.DataFrame.from_dict(birds_df)
+        self.all_birds = all_birds
         self.curr_dic = dic
         self.features = features
+        self.match_count = matches
 
     def calculate_match_percentage(self, bird: dict) -> float:
         """
         Calculate match percentage considering db values are comma-separated strings
-        and current dictionary values are arrays.
+        and current dictionary values are arrays. Null values in bird dictionary 
+        are considered matches.
         """
         total_features = 0
         matched_features = 0
-        
+
         for feature, curr_values in self.curr_dic.items():
             if feature not in self.features:
                 continue
-                
+
             total_features += 1
-            
-            if feature in bird and not pd.isna(bird[feature]):
+
+            if feature not in bird or pd.isna(bird[feature]):
+                matched_features += 1
+            else:
                 bird_values = set(v.strip().lower() for v in bird[feature].split(','))
-                
+
                 if isinstance(curr_values, list):
                     curr_values_set = set(v.lower() for v in curr_values)
                 else:
                     curr_values_set = {curr_values.lower()}
-                
+
                 if bird_values & curr_values_set:
                     matched_features += 1
-                        
+
         if total_features == 0:
             return 0
         return (matched_features / total_features) * 100
@@ -42,18 +47,15 @@ class BirdIdentifier:
         Return all birds with their match percentages, sorted by best match.
         """
         matches = []
-        current_birds = self.birds.to_dict(orient='records')
+        current_birds = self.all_birds.copy()
         
         for bird in current_birds:
             match_percentage = self.calculate_match_percentage(bird)
-            matches.append({
-                'name': bird['name'],
-                'match_percentage': round(match_percentage, 2),
-                # 'bird_data': bird
-            })
+            bird['match_percentage'] = round(match_percentage, 1)
+            matches.append(bird)
         
         matches.sort(key=lambda x: x['match_percentage'], reverse=True)
-        return matches[:5]
+        return matches[:self.match_count]
 
     def can_feature_split_further(self, current_birds: list, feature: str) -> bool:
         """this function checks if a feature can help filter further"""
@@ -123,5 +125,5 @@ class BirdIdentifier:
         used_features = list(self.curr_dic.keys())
         best_feature = self.find_best_feature(current_birds, used_features)
         if best_feature:
-            return best_feature, None
-        return best_feature, self.birds.to_dict(orient='records')
+            return best_feature
+        return best_feature

@@ -4,7 +4,7 @@ from model.answer import Answer
 from flask_cors import CORS, cross_origin
 from src.filter import find_bird, fetch_db
 from src.claude_1a import claude_1
-from src.utils import update_and_join ,server_setup
+from src.utils import update_and_join ,server_setup, hard_summary
 from src.claude_summary import claude_summary
 from src.formatData import formatData, save_user_data
 from dotenv import load_dotenv
@@ -30,7 +30,7 @@ def process_bird_data(json_data):
     #claude interpret input
     dic = claude_1(request_data.message, request_data.category_prompt, all_words)
 
-    #join new to old dic
+    #join new to old dictionnary
     dic = update_and_join(dic, request_data.categories)
 
     #if both dictionnary are the same and a category was prompt -> set category to null so not reasked
@@ -39,11 +39,13 @@ def process_bird_data(json_data):
 
 
     #find next best question + filtering
-    question, birds, error = find_bird(dic, app.config['birds_left'], app.config['key_features'], request_data.id)
-    
+    question, error, matches = find_bird(dic, app.config['birds_left'], app.config['key_features'], request_data.id, app.config['match_count'])
     #get sumamry from claude
     if dic:
-        summary = claude_summary(dic)
+        summary = hard_summary(dic)
+
+        #custom clause summary
+        # summary = claude_summary(dic)
     else:
         summary = "We couldn't manage to get any informations from your input"
 
@@ -51,13 +53,13 @@ def process_bird_data(json_data):
     user_data = formatData(dic, request_data.message, request_data.user_data, error)
 
     #if found birds or error we save user data
-    if birds or not question or error:
-        save_user_data(user_data, birds)
+    if matches or not question or error:
+        save_user_data(user_data, matches)
 
     response_data = Answer(
         isConfused = False,
         category_prompt = question,
-        identifications = birds,
+        identifications = matches,
         categories =  dic,
         summary = summary,
         user_data = user_data
@@ -88,4 +90,4 @@ def get_bird():
     return jsonify({'error': 'Method not allowed'}), 405
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(host="0.0.0.0")

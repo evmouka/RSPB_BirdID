@@ -52,6 +52,7 @@ const BirdSelection: React.FC<BirdSelectionProps> = ({
               alt={bird.name}
               style={{ maxWidth: "100%", height: "100px", objectFit: "cover", borderRadius: "8px" }}
             />
+            <p style={{ marginTop: "10px", fontSize: "small"}}>{bird.match_percentage}%</p>
             <p style={{ marginTop: "10px", fontSize: "medium", fontWeight: "bold" }}>{bird.name}</p>
           </div>
         ))}
