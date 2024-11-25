@@ -1,0 +1,21 @@
+{
+  "semi": false,
+  "printWidth": 100,
+  "importOrder": [
+    "^react(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^[./](.*)(?<!\\.css)$",
+    "^[^.].*\\.css$",
+    "^[.].*\\.css$"
+  ],
+  "importOrderSortSpecifiers": true,
+  "overrides": [
+    {
+      "files": ["*.svg", "*.xml"],
+      "options": {
+        "parser": "html"
+      }
+    }
+  ],
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
+}

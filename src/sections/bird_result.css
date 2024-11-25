@@ -1,0 +1,237 @@
+
+/* || General styles */
+
+body {
+    font-family: "Brother 1816";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    /* line-height: 24px; 150% */
+
+    box-sizing: border-box;
+    margin: 0 30vw;
+}
+
+button {
+    /* width: 100px;
+    height: 25px; */
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+
+    background: none;
+    border: none;
+
+}
+
+button.big-green{
+    color: white;
+    font-family: "Brother 1816";
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 126.316% */
+
+    border-radius: 100px;
+    background-color: #57A627;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.24);
+    margin: 16px 16px;
+
+    display: inline-flex;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+img {
+    margin: 0;
+    padding: 0;
+}
+
+img.image-list {
+    object-fit: contain;
+    width: 100%;
+}
+
+.no-bullet{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dot {
+    height: 16px;
+    width: 16px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* || Colours */
+
+.brown {
+    background-color: #A06E3C;
+}
+
+.red {
+    background-color: #FF4F4C;
+}
+
+.blue {
+    color: #0099FB;
+}
+
+.skyblue {
+    background-color: #DFF2FF;
+}
+
+.cream {
+    background-color: #FFE3C9;
+}
+
+.grey {
+    background-color: #808589;
+}
+
+/* || Typography */
+
+
+h1 {
+    font-family: "Bely";
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px; /* 111.111% */
+}
+
+
+h4 {
+    font-family: "Brother 1816";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px; /* 160% */
+}
+
+a {
+    font-family: "Brother 1816";
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 126.316% */ 
+    /* font-style: ; */
+
+    text-decoration: none;
+    color: #0099FB;
+}
+
+p {
+    margin: auto;
+}
+
+p.strong {
+    font-family: "Brother 1816";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 150% */
+    color: #313131;
+    margin: 12px 0;
+}
+
+p.medium {
+    font-family: "Brother 1816";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 150% */
+}
+
+p.small {
+    font-family: "Brother 1816";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+/* || Header & main navigation */
+
+
+/* || Sections */
+
+.header {
+    padding: 1em 0 0 1em;
+}
+
+.icon-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+}
+
+.img-list {
+    margin: 0;
+}
+
+.caption {
+    /* height: 10vh; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.caption-content {
+    background-color: #144650;
+    /* height: 100%; */
+    color: white;
+    padding: 0.5em 0.5em;
+    gap: 1em;
+
+    flex: 1;
+}
+
+.menu-icon {
+    height: 100%;
+    background-color: #0099FB;
+    align-items: center;
+    flex: 0.1;
+}
+
+.features {
+    padding: 16px 0;
+}
+
+.features-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.features-item {
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #DDD;
+    width: 10vw;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.colours {
+    border-radius: 100px;
+    background-color: #DFF2FF;
+    padding: 4px 4px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
