@@ -1,0 +1,385 @@
+[
+    {
+        "user_data": {
+            "conversation": [
+                {
+                    "text": "It's a small bird with orange-pink on its belly, a bluish-gray head, and cool patterns on its wings with black and white stripes. It looks really colorful when it hops around in the trees.",
+                    "categories_described": {
+                        "size": "small",
+                        "plumage_colour": "orange, pink, grey, black, white",
+                        "pattern_markings": "black stripe",
+                        "habitat": "woodland"
+                    },
+                    "new_attribute": {},
+                    "length": 34
+                }
+            ],
+            "average_message_length": 34.0,
+            "error": null
+        },
+        "app_response": {
+            "suggestions": [
+                "chaffinch (male)",
+                "rock dove (ferel pigeon)"
+            ],
+            "correct": true
+        }
+    },
+    {
+        "user_data": {
+            "conversation": [
+                {
+                    "text": "It's a small bird with orange-pink on its belly, a bluish-gray head, and cool patterns on its wings with black and white stripes. It looks really colorful when it hops around in the trees.",
+                    "categories_described": {
+                        "size": "small",
+                        "plumage_colour": "orange, pink, grey, black, white",
+                        "pattern_markings": "black stripe",
+                        "habitat": "woodland"
+                    },
+                    "new_attribute": {},
+                    "length": 34
+                }
+            ],
+            "average_message_length": 34.0,
+            "error": null
+        },
+        "app_response": {
+            "suggestions": [
+                "chaffinch (male)",
+                "rock dove (ferel pigeon)"
+            ],
+            "correct": true
+        }
+    },
+    {
+        "app_response": {
+            "correct": true,
+            "suggestions": [
+                "jackdaw"
+            ]
+        },
+        "user_data": {
+            "average_message_length": 6.5,
+            "conversation": [
+                {
+                    "categories_described": {
+                        "pattern_markings": "dark brown",
+                        "plumage_colour": "grey"
+                    },
+                    "length": 12,
+                    "new_attribute": {},
+                    "text": "the bird was the color of a rain cloud and very dark"
+                },
+                {
+                    "text": "black",
+                    "categories_described": {
+                        "leg_colour": "black",
+                        "pattern_markings": "dark brown",
+                        "plumage_colour": "grey"
+                    },
+                    "new_attribute": {},
+                    "length": 1
+                }
+            ],
+            "error": null
+        }
+    },
+    {
+        "user_data": {
+            "conversation": [
+                {
+                    "text": "It's a small bird with orange-pink on its belly, a bluish-gray head, and cool patterns on its wings with black and white stripes. It looks really colorful when it hops around in the trees.",
+                    "categories_described": {
+                        "size": "small",
+                        "plumage_colour": [
+                            "orange",
+                            "blue",
+                            "grey"
+                        ],
+                        "pattern_markings": [
+                            "black stripe",
+                            "white"
+                        ],
+                        "habitat": "woodland"
+                    },
+                    "new_attribute": {},
+                    "length": 34
+                }
+            ],
+            "average_message_length": 34.0,
+            "error": null
+        },
+        "app_response": {
+            "suggestions": [],
+            "correct": true
+        }
+    },
+    {
+        "user_data": {
+            "conversation": [
+                {
+                    "text": "It's a small bird with orange-pink on its belly, a bluish-gray head, and cool patterns on its wings with black and white stripes. It looks really colorful when it hops around in the trees.",
+                    "categories_described": {
+                        "size": "small",
+                        "plumage_colour": [
+                            "orange",
+                            "blue",
+                            "grey"
+                        ],
+                        "pattern_markings": [
+                            "black stripe",
+                            "white"
+                        ],
+                        "habitat": "woodland"
+                    },
+                    "new_attribute": {},
+                    "length": 34
+                }
+            ],
+            "average_message_length": 34.0,
+            "error": null
+        },
+        "app_response": {
+            "suggestions": [],
+            "correct": true
+        }
+    },
+    {
+        "user_data": {
+            "conversation": [
+                {
+                    "text": "the bird was the color of a rain cloud and black",
+                    "categories_described": {
+                        "plumage_colour": [
+                            "grey",
+                            "black"
+                        ]
+                    },
+                    "new_attribute": {},
+                    "length": 11
+                }
+            ],
+            "average_message_length": 11.0,
+            "error": null
+        },
+        "app_response": {
+            "suggestions": [],
+            "correct": true
+        }
+    },
+    {
+        "user_data": {
+            "conversation": [
+                {
+                    "text": "It's a small bird with orange-pink on its belly, a bluish-gray head, and cool patterns on its wings with black and white stripes. It looks really colorful when it hops around in the trees.",
+                    "categories_described": {
+                        "size": "small",
+                        "plumage_colour": [
+                            "orange",
+                            "blue",
+                            "grey"
+                        ],
+                        "pattern_markings": [
+                            "black stripe",
+                            "white"
+                        ],
+                        "habitat": "woodland"
+                    },
+                    "new_attribute": {},
+                    "length": 34
+                }
+            ],
+            "average_message_length": 34.0,
+            "error": null
+        },
+        "app_response": {
+            "suggestions": [
+                "chaffinch (male)"
+            ],
+            "correct": true
+        }
+    },
+    {
+        "user_data": {
+            "conversation": [
+                {
+                    "text": "It's a small bird with orange-pink on its belly, a bluish-gray head, and cool patterns on its wings with black and white stripes. It looks really colorful when it hops around in the trees.",
+                    "categories_described": {
+                        "size": "small",
+                        "plumage_colour": [
+                            "orange",
+                            "blue",
+                            "grey"
+                        ],
+                        "pattern_markings": [
+                            "black stripe",
+                            "white"
+                        ],
+                        "habitat": "woodland"
+                    },
+                    "new_attribute": {},
+                    "length": 34
+                }
+            ],
+            "average_message_length": 34.0,
+            "error": null
+        },
+        "app_response": {
+            "suggestions": [
+                "chaffinch (male)"
+            ],
+            "correct": true
+        }
+    },
+    {
+        "user_data": {
+            "conversation": [
+                {
+                    "text": "It's a small bird with orange-pink on its belly, a bluish-gray head, and cool patterns on its wings with black and white stripes. It looks really colorful when it hops around in the trees.",
+                    "categories_described": {
+                        "size": "small",
+                        "plumage_colour": [
+                            "orange",
+                            "blue",
+                            "grey"
+                        ],
+                        "pattern_markings": [
+                            "black stripe",
+                            "white"
+                        ],
+                        "habitat": "woodland"
+                    },
+                    "new_attribute": {},
+                    "length": 34
+                }
+            ],
+            "average_message_length": 34.0,
+            "error": null
+        },
+        "app_response": {
+            "suggestions": [
+                "chaffinch (male)"
+            ],
+            "correct": true
+        }
+    },
+    {
+        "app_response": {
+            "correct": true,
+            "suggestions": []
+        },
+        "user_data": {
+            "average_message_length": 5.0,
+            "conversation": [
+                {
+                    "categories_described": {
+                        "plumage_colour": "brown",
+                        "size": "small"
+                    },
+                    "length": 3,
+                    "new_attribute": {},
+                    "text": "brown small bird"
+                },
+                {
+                    "text": "tail is forked and legs are black",
+                    "categories_described": {
+                        "leg_colour": "black",
+                        "tail_shape_1": "forked",
+                        "plumage_colour": "brown",
+                        "size": "small"
+                    },
+                    "new_attribute": {},
+                    "length": 7
+                }
+            ],
+            "error": null
+        }
+    },
+    {
+        "app_response": {
+            "correct": true,
+            "suggestions": [
+                "chaffinch (female)",
+                "chaffinch (male)",
+                "dunnock",
+                "great-spotted woodpecker (adult)"
+            ]
+        },
+        "user_data": {
+            "average_message_length": 1.6,
+            "conversation": [
+                {
+                    "categories_described": {
+                        "plumage_colour": [
+                            "brown",
+                            "grey"
+                        ],
+                        "size": "small"
+                    },
+                    "length": 4,
+                    "new_attribute": {},
+                    "text": "small brown grey bird"
+                },
+                {
+                    "categories_described": {
+                        "beak_colour": "black",
+                        "plumage_colour": [
+                            "brown",
+                            "grey"
+                        ],
+                        "size": "small"
+                    },
+                    "length": 1,
+                    "new_attribute": {},
+                    "text": "black"
+                },
+                {
+                    "categories_described": {
+                        "beak_colour": "black",
+                        "leg_colour": "brown",
+                        "plumage_colour": [
+                            "brown",
+                            "grey"
+                        ],
+                        "size": "small"
+                    },
+                    "length": 1,
+                    "new_attribute": {},
+                    "text": "brown"
+                },
+                {
+                    "categories_described": {
+                        "beak_colour": "black",
+                        "leg_colour": "brown",
+                        "plumage_colour": [
+                            "brown",
+                            "grey"
+                        ],
+                        "size": "small",
+                        "tail_shape_1": "forked"
+                    },
+                    "length": 1,
+                    "new_attribute": {},
+                    "text": "forked"
+                },
+                {
+                    "text": "white",
+                    "categories_described": {
+                        "pattern_markings": "white",
+                        "beak_colour": "black",
+                        "leg_colour": "brown",
+                        "plumage_colour": [
+                            "brown",
+                            "grey"
+                        ],
+                        "size": "small",
+                        "tail_shape_1": "forked"
+                    },
+                    "new_attribute": {},
+                    "length": 1
+                }
+            ],
+            "error": null
+        }
+    }
+]

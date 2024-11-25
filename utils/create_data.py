@@ -1,6 +1,7 @@
 import pandas as pd
 import sqlite3
-import random
+import psycopg2
+from psycopg2 import sql
 
 db = sqlite3.connect('bird_database.db')
 cursor = db.cursor()

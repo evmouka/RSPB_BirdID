@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify
 from model import Guess, Answer
 from flask_cors import CORS, cross_origin
-from filter import find_bird, fetch_db
-from claude_1a import claude_1
-from utils import update_and_join ,server_setup
-from claude_summary import claude_summary
-from formatData import formatData, save_user_data
+from src.filter import find_bird, fetch_db
+from src.claude_1a import claude_1
+from src.utils import update_and_join ,server_setup
+from src.claude_summary import claude_summary
+from src.formatData import formatData, save_user_data
 from dotenv import load_dotenv
 import json
 
