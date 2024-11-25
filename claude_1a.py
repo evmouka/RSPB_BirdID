@@ -1,8 +1,9 @@
 import anthropic
 import xmltodict
+from dict2xml import dict2xml
 import json
 
-def claude_1(user_input: str, category_prompt: str) -> dict:
+def claude_1(user_input: str, category_prompt: str, all_words: dict) -> dict:
     client = anthropic.Anthropic()
     category = ""
     if category_prompt:
@@ -31,17 +32,7 @@ Output your interpretation in the following format:
 </bird_sighting>
 
 the values to fill the XML should exclusively be taken from this JSON:
-[
-    "size": "medium, extra small, large, small",
-    "plumage_colour": "orange, blue, cream/buff, brown, pink, buff, cream, yellow, grey, purple, white, green, pale brown, brown, beige, black, red",
-    "beak_colour": "orange, yellow, grey, white, brown, black",
-    "feet_colour": "blue, pink, grey, brown, black, red",
-    "leg_colour": "pink, grey, brown, black, red",
-    "beak_shape_1": "sharp, thick, narrow, short, curved, thin, hooked, long, pointed, stubby",
-    "tail_shape_1": "double, thin, fan, fanned in flight, square, long, pointed, forked",
-    "pattern_markings": "black, yellow, bright yellow breast, green, white cheeks, black cap, red, black neck collar, blue, red brest, dark brown, sooty black. yellow bill, brown back, white, green gloss to the tail, black plumage, orange brest, darker wings and tail, speckles, green back, yellow eye ring, black stripe, purplish-blue iridescent sheen to the wing feathers",
-    "habitat": "grassland, city, hedgerow, heathland, meadow, suburban, wetland, farmland, woodland, town, garden, park, urban, upland"
-]
+{dict2xml(all_words)}
 
 Here are some important rules to follow:
 -only output in the XML format and nothing else than the XML
@@ -76,7 +67,6 @@ the output:
     </new_attribute>
 </bird_sighting>
 """
-
     message = client.messages.create(
         model="claude-3-5-sonnet-20241022",
         max_tokens=1000,
@@ -90,9 +80,12 @@ the output:
     xml_string = message.content[0].text if isinstance(message.content, list) else message.content.text
     try:
         xml_dict = xmltodict.parse(xml_string)
-        json_dict = json.loads(json.dumps(xml_dict))
+        bird_features = json.loads(json.dumps(xml_dict))
+        bird_features =  bird_features["bird_sighting"]
+        if not bird_features:
+            bird_features = {}
     except:
         return {"bird_sighting": {}}
     
-    return json_dict
+    return bird_features
     

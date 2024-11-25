@@ -1,51 +1,55 @@
 from flask import Flask, request, jsonify
 from model import Guess, Answer
 from flask_cors import CORS, cross_origin
-from algo import find_bird, fetch_db
+from filter import find_bird, fetch_db
 from claude_1a import claude_1
-from utils import update_and_join
+from utils import update_and_join ,server_setup
 from claude_summary import claude_summary
 from formatData import formatData, save_user_data
+from dotenv import load_dotenv
+import json
 
 app = Flask(__name__)
 cors = CORS(app)
+load_dotenv()
 app.config['CORS_HEADERS'] = 'Content-Type'
+with open('config.json') as config_file:
+    app.config.update(json.load(config_file))
+all_words = server_setup(app.config["key_features"])
+
 def process_bird_data(json_data):
     request_data = Guess(
-        id=0,
+        id=-1, #id for game mode
         message=json_data["message"],
         category_prompt=json_data["categoryPrompt"],
         categories=json_data["categories"],
         user_data=json_data["user_data"]
     )
+
     #claude interpret input
-    dic = claude_1(request_data.message, request_data.category_prompt)
-    dic =  dic["bird_sighting"]
-    if not dic:
-        dic = {}
+    dic = claude_1(request_data.message, request_data.category_prompt, all_words)
 
     #join new to old dic
     dic = update_and_join(dic, request_data.categories)
+
+    #if both dictionnary are the same and a category was prompt -> set category to null so not reasked
     if dic == request_data.categories and request_data.category_prompt:
         dic[request_data.category_prompt] = None
 
-    algo_dic = dic.copy()
-    new_feature = None
-    if "new_attribute" in dic:
-        new_feature = algo_dic["new_attribute"]
-        del algo_dic["new_attribute"]
 
     #find next best question + filtering
-    print(algo_dic)
-    question, birds, error = find_bird(algo_dic, request_data.id)
+    question, birds, error = find_bird(dic, app.config['birds_left'], app.config['key_features'], request_data.id)
     
     #get sumamry from claude
-    if algo_dic:
-        summary = claude_summary(algo_dic)
+    if dic:
+        summary = claude_summary(dic)
     else:
         summary = "We couldn't manage to get any informations from your input"
-    user_data = formatData(algo_dic, new_feature, request_data.message, request_data.user_data, error)
 
+    #format user data
+    user_data = formatData(dic, request_data.message, request_data.user_data, error)
+
+    #if found birds or error we save user data
     if birds or not question or error:
         save_user_data(user_data, birds)
 

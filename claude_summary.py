@@ -2,7 +2,8 @@ import anthropic
 
 def claude_summary(cat: dict) -> str:
     client = anthropic.Anthropic()
-    
+    if 'new_attribute' in cat:
+        del cat['new_attribute']
     prompt = f"""
     I have some bird characteristic in form of json. I want you to make a nice summary of the current description. 
     Here is the json:

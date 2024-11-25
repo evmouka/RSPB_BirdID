@@ -1,0 +1,4 @@
+{
+    "key_features":["plumage_colour", "beak_colour", "feet_colour", "leg_colour", "beak_shape_1", "tail_shape_1", "pattern_markings", "size", "habitat"],
+    "birds_left": 3
+}
