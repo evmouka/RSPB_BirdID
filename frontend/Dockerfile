@@ -1,4 +1,4 @@
-FROM node:16 as development
+FROM node:latest as development
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -8,7 +8,7 @@ EXPOSE 3000
 CMD ["npm", "run", "dev"]
 
 # Production stage
-# FROM node:16 as build
+# FROM node:latest as build
 # WORKDIR /app
 # COPY package*.json ./
 # RUN npm install
