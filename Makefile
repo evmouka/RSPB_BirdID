@@ -36,7 +36,7 @@ stop:
 
 # Clean up the services and remove volumes
 clean:
-	$(DOCKER_COMPOSE) $(DOCKER_COMPOSE_FILE) down -v
+	$(DOCKER_COMPOSE) $(DOCKER_COMPOSE_FILE) down -v --rmi all
 
 #copy the user_data from the container
 copy:
