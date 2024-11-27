@@ -100,6 +100,7 @@ const Chat: React.FC = () => {
           categoryPrompt: prompt,
           categories: categories,
           user_data: userData,
+          birdId: -1,
         }),
       })
         .then((res) => {

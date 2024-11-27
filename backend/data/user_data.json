@@ -1,70 +1,30 @@
 [
     {
-        "app_response": {
-            "correct": true,
-            "suggestions": [
-                "wood pigeon (adult)",
-                "chaffinch (female)",
-                "chaffinch (male)",
-                "collared dove",
-                "jackdaw"
-            ]
-        },
         "user_data": {
-            "average_message_length": 2.25,
             "conversation": [
                 {
+                    "text": "I saw a black bird with a yellow beak and a fan tail",
                     "categories_described": {
-                        "plumage_colour": [
-                            "grey",
-                            "black"
-                        ]
-                    },
-                    "length": 4,
-                    "new_attribute": {},
-                    "text": "grey and black bird"
-                },
-                {
-                    "categories_described": {
-                        "plumage_colour": [
-                            "grey",
-                            "black"
-                        ],
-                        "tail_shape_1": null
-                    },
-                    "length": 3,
-                    "new_attribute": {},
-                    "text": "i dont know"
-                },
-                {
-                    "categories_described": {
-                        "plumage_colour": [
-                            "grey",
-                            "black"
-                        ],
-                        "size": "medium",
-                        "tail_shape_1": null
-                    },
-                    "length": 1,
-                    "new_attribute": {},
-                    "text": "medium"
-                },
-                {
-                    "text": "orange",
-                    "categories_described": {
-                        "beak_colour": "orange",
-                        "plumage_colour": [
-                            "grey",
-                            "black"
-                        ],
-                        "size": "medium",
-                        "tail_shape_1": null
+                        "plumage_colour": "black",
+                        "beak_colour": "yellow",
+                        "tail_shape_1": "fan"
                     },
                     "new_attribute": {},
-                    "length": 1
+                    "length": 13
                 }
             ],
+            "average_message_length": 13.0,
             "error": null
+        },
+        "app_response": {
+            "suggestions": [
+                "blackbird (adult male)",
+                "wood pigeon (adult)",
+                "blackbird (female)",
+                "magpie",
+                "long-tailed tit"
+            ],
+            "correct": true
         }
     }
 ]

@@ -237,7 +237,7 @@ p.small {
 }
 
 .highlight-bubble {
-    background-color: #007BFF; /* Softer blue for better contrast */
+    background-color: rgb(19 78 74 / var(--tw-bg-opacity, 1));
     padding: 4px 10px;
     border-radius: 20px;
     display: inline-flex;

@@ -20,13 +20,13 @@ all_words = server_setup(app.config["key_features"])
 
 def process_bird_data(json_data):
     request_data = Guess(
-        id=-1, #id for game mode
+        id=json_data["birdId"], #id for game mode
         message=json_data["message"],
         category_prompt=json_data["categoryPrompt"],
         categories=json_data["categories"],
         user_data=json_data["user_data"]
     )
-
+    print(request_data.id)
     #claude interpret input
     dic = claude_1(request_data.message, request_data.category_prompt, all_words)
 
