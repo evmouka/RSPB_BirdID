@@ -4,6 +4,7 @@ import ChatBubble from "../components/chat-bubble.tsx";
 import categoryPrompts from "../categoryPrompts.json";
 import BirdIdentity from "../components/birdIdentity.tsx";
 import BirdSelection from "../components/BirdSelection.tsx"; // Import the component
+import GameMode from "../components/GameMode.tsx";
 
 interface CategoryPrompts {
   [key: string]: string;
@@ -186,6 +187,7 @@ const Chat: React.FC = () => {
   };
   return (
     <div className="flex flex-col h-screen w-full">
+      <GameMode/>
       <main className="flex justify-center basis-full p-6 bg-gray-200">
         <div className="flex flex-col gap-4 w-full max-w-screen-sm">
           {messages.map((msg, index) => (
@@ -207,6 +209,7 @@ const Chat: React.FC = () => {
             </>
           ) : birdResults.length === 1 ? (
             <BirdIdentity
+              birdData={birdResults[0]}
               imageSrc={birdResults[0].picture}
               birdName={birdResults[0].name}
               // birdSummary={birdResults[0].summary}

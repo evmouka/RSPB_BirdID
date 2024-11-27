@@ -1,17 +1,18 @@
 import { useNavigate } from "react-router-dom";
 
 interface BirdIdentityProps {
+  birdData: object;
   imageSrc: string; 
   birdName: string;
   imageSize: string
 }
 
-const BirdIdentity = ({imageSrc, birdName, imageSize}: BirdIdentityProps) => {
+const BirdIdentity = ({birdData, imageSrc, birdName, imageSize}: BirdIdentityProps) => {
 
   const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/result");
+        navigate("/result", {state: birdData});
       };
 
   return (

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./bird_result.css"
 import { useState, useEffect } from "react";
 
@@ -15,50 +15,24 @@ interface Identification {
     plumage_colour: string;
     pattern_markings: string;
     sex_age_variations: string;
-  }
-  
-  type Identifications = Identification[];
-  
+  }  
 
 const BirdResult: React.FC = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const birdFromRoute = location.state;
 
-    const [birdDescription, SetBirdDescription] = useState("")
-    const [birdData, setBirdData] = useState<Identification | null>(null);
+    const [birdData, setBirdData] = useState(birdFromRoute || {});
+    const [birdDescription, setBirdDescription] = useState('');
 
-    const fetchData = async () => {
-        await fetch("http://localhost:5000/birds", {
-        method: "POST",
-        headers: {
-          "Content-Type": "Application/json"
-        },
-        body: JSON.stringify({
-          "message": "I saw a black bird with a yellow beak and a fan tail",
-          "categoryPrompt": "",
-          "categories": {},
-          "user_data": {}
-        })
-      })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch response");
-        return res.json();
-      })
-      .then((response) => {
-        const data = response.data;
-        const birdResult: Identifications = data.identifications;
-
-        if (birdResult.length > 0) {
-            setBirdData(birdResult[0]);
-        } else {
-            console.error("No bird identifications returned.");
-        }
-
-        const summaryKey = Object.keys(birdResult[0]).find(key => key.trim() === 'summary'); 
-          
+    useEffect(() => {    
+        if (birdData) {
+          const summaryKey = Object.keys(birdData).find(key => key.trim() === 'summary');
           if (summaryKey !== undefined) {
-            SetBirdDescription(birdResult[0][summaryKey])
-          }     
-      })}
+            setBirdDescription(birdData[summaryKey]);
+          }
+        }
+      }, [birdData]);
 
       const getPlumageColors = (plumage: string) => {
         return plumage
@@ -67,10 +41,6 @@ const BirdResult: React.FC = () => {
             .map((color) => color.trim()) // Trim extra whitespace
             .filter((color) => color !== ""); // Remove empty values
     };
-
-    useEffect(() => {
-        fetchData();
-    }, []); 
 
 
 
@@ -147,7 +117,6 @@ const BirdResult: React.FC = () => {
             </div>
 
             <div className="description">
-                {/* <p>These noisy and sociable birds are found around the world, thanks to their cheerful ability to make the most of humanity's rubbish and wastefulness.</p> */}
                     <p>{birdDescription}</p>
             </div>
 
