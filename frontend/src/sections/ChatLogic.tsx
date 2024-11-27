@@ -17,7 +17,7 @@ interface Message {
 interface Identification {
   name: string;
   picture: string;
-  ["summary\n"]: string;
+  ["summary"]: string;
   user_data: any;
 }
 
@@ -65,7 +65,7 @@ const Chat: React.FC = () => {
         },
       ]);
     }
-  }, [birdResults]); // Run whenever birdResults changes
+  }, [birdResults]);
 
   useEffect(() => {
     if (hasSentFirstMessage) {
@@ -109,9 +109,6 @@ const Chat: React.FC = () => {
           const data = response.data;
           const newPrompt = data.category_prompt;
           const birdResult: Identifications = data.identifications;
-          console.log(newPrompt);
-
-          console.log(response);
 
           // Handle `isConfused`
           if (response.isConfused) {
@@ -122,20 +119,21 @@ const Chat: React.FC = () => {
                 content: "I'm not sure I understand. Could you provide more details?",
               },
             ]);
-          } else if (birdResult != null) {
+          } 
+          const processedSummary = processSummary(data.summary);
+          setMessages((prev) => [
+            ...prev.slice(0, -1),
+            { sender: "chatbot", content: processedSummary },
+          ]);
+          
+          if (birdResult != null) {
             if (birdResult.length > 0) {
               setBirdResults(birdResult);
             }
 
             setImageSrc(birdResult[0].picture);
             SetBirdName(birdResult[0].name);
-          } else {
-            setMessages((prev) => [
-              ...prev.slice(0, -1),
-              { sender: "chatbot", content: data.summary },
-            ]);
-          }
-
+          } 
           setTimeout(() => {
             if (newPrompt != null) {
               setMessages((prev) => [
@@ -161,7 +159,31 @@ const Chat: React.FC = () => {
       setIsLoading(false);
     }
   };
-
+  // Function to process summary and create clickable bubbles
+  const processSummary = (summary: string) => {
+    const regex = /<([^>]+)>/g; // Match any word inside < > (excluding the angle brackets)
+    const parts = summary.split(regex);  // Split by <...>
+  
+    return parts.map((part, index) => {
+      // If the part is a word inside < >, index will be odd
+      if (index % 2 === 1) {
+        return (
+          <span key={index} className="highlight-bubble">
+            {part}
+            <button
+              className="close"
+              onClick={(e) => {
+                e.stopPropagation();
+                
+              }}
+              >
+            </button>
+          </span>
+        );
+      }
+      return part;
+    });
+  };
   return (
     <div className="flex flex-col h-screen w-full">
       <main className="flex justify-center basis-full p-6 bg-gray-200">

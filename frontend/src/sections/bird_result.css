@@ -235,3 +235,48 @@ p.small {
     align-items: center;
     gap: 8px;
 }
+
+.highlight-bubble {
+    background-color: #007BFF; /* Softer blue for better contrast */
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.highlight-bubble .close {
+    background: none;
+    border: none;
+    color: white;
+    margin-left: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.highlight-bubble .close:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+.highlight-bubble .close:before {
+    content: "×"; /* Unicode for a cross */
+    font-size: 12px;
+    line-height: 1;
+}
+
+  
