@@ -1,6 +1,5 @@
 venv
 .env
-*.json
 *.py
 node_modules
 models
