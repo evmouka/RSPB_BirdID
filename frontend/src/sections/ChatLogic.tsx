@@ -41,6 +41,8 @@ const Chat: React.FC = () => {
   const [hasSentFirstMessage, setHasSentFirstMessage] = useState(false);
   const [userData, setUserData] = useState<any>("");
   const [birdResults, setBirdResults] = useState<any[]>([]);
+  const [birdId, setBirdId] = useState<string | null>(null); // Save bird ID
+  const [showImage, setShowImage] = useState(false); // Add showImage state
 
   useEffect(() => {
     if (birdResults.length > 1) {
@@ -89,7 +91,7 @@ const Chat: React.FC = () => {
           categoryPrompt: prompt,
           categories: updatedCategories,
           user_data: userData,
-          birdId: -1,
+          birdId: birdId, // Include birdId in the request
         }),
       });
 
@@ -240,9 +242,20 @@ const Chat: React.FC = () => {
     });
 }
 
+  const handleGameStart = (birdId: string, imageSrc: string) => {
+    setBirdId(birdId);
+    setImageSrc(imageSrc);
+    setShowImage(true);
+
+    // Hide the image after 5 seconds
+    setTimeout(() => {
+      setShowImage(false);
+    }, 5000);
+  };
+
   return (
     <div className="flex flex-col h-screen w-full">
-      <GameMode />
+      <GameMode onGameStart={handleGameStart} />
       <main className="flex justify-center basis-full p-6 bg-gray-200">
         <div className="flex flex-col gap-4 w-full max-w-screen-sm">
           {messages.map((msg, index) => (
@@ -319,6 +332,38 @@ const Chat: React.FC = () => {
           </div>
         </div>
       </footer>
+
+      {showImage && imageSrc && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 10000, // Ensure the overlay is on top
+          }}
+        >
+          <div
+            style={{
+              width: "500px", // Fixed width
+              height: "500px", // Fixed height
+              overflow: "hidden",
+              borderRadius: "50%",
+            }}
+          >
+            <img
+              src={imageSrc}
+              alt="Bird"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

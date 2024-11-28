@@ -30,9 +30,10 @@ def formatData(categories, user_input, current_data, error=None):
 def save_user_data(data, suggestions):
     if data['user_data']['error']:
         data['app_response']['correct'] = False
-    data['app_response']['suggestions'] = [entry['name'] for entry in suggestions if 'name' in entry]
+    if suggestions:
+        data['app_response']['suggestions'] = [entry['name'] for entry in suggestions if 'name' in entry]
     data['user_data']['average_message_length'] = calculate_average(data['user_data']['conversation'])
-    if os.path.exists('user_data.json'):
+    if os.path.exists('data/user_data.json'):
         with open('data/user_data.json', "r") as file:
             database = json.load(file)
         database.append(data)

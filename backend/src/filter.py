@@ -41,11 +41,17 @@ def find_error(bird: dict, dic: dict) -> list:
     exclusions = []
     
     for key, value in dic.items():
-        if bird.get(key) != value:
+        if value is None:
+            continue
+        bird_value = bird.get(key, "") or ""
+        if not bird_value:
+            continue
+        bird_values = bird_value.split(', ')
+        if value not in bird_values:
             exclusions.append({
                 "category": key,
                 "adjective": value,
-                "bird_value": bird.get(key),
+                "bird_value": bird_value,
             })
     
     return exclusions
@@ -56,10 +62,13 @@ def find_bird(dic: dict, birds_left:int, features: list,  id: int, match_count: 
     all_birds = fetch_db("select * from birdInfo", [])
     error = None
     #if game
-    if not id == -1:
+    print(id)
+    if id:
         id_exists = any(d.get("id") == id for d in birds)
         if not id_exists:
             bird = fetch_db("select * from birdInfo where species_number=?", [id])
+            if isinstance(bird, list) and len(bird) > 0:
+                bird = bird[0]
             error = find_error(bird, dic)
 
     birdId = BirdIdentifier(birds, all_birds, dic, features, match_count)

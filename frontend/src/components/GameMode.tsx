@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const GameMode = () => {
+interface GameModeProps {
+  onGameStart: (birdId: string, imageSrc: string) => void;
+}
+
+const GameMode: React.FC<GameModeProps> = ({ onGameStart }) => {
   const [birdId, setBirdId] = useState<string | null>(null); // Save the bird ID
   const [showImage, setShowImage] = useState(false);
   const [imageSrc, setImageSrc] = useState<string | null>(null); // Save image URL
@@ -19,10 +23,12 @@ const GameMode = () => {
       }
 
       const data = await response.json();
-      console.log("Bird data:", data);
       setBirdId(data.id); // Save the bird ID
-      setImageSrc(data.picture); // Save the image URL
+      setImageSrc(data.image); // Save the image URL
       setShowImage(true); // Show the image
+
+      // Pass birdId and imageSrc to parent component
+      onGameStart(data.id, data.image);
 
       // Hide the image after 5 seconds
       setTimeout(() => {
@@ -60,13 +66,13 @@ const GameMode = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            zIndex: 1000,
+            zIndex: 10000, // Ensure the overlay is on top
           }}
         >
           <div
             style={{
-              width: "500px", // Fixed width
-              height: "500px", // Fixed height
+              width: "500px",
+              height: "500px",
               overflow: "hidden",
               borderRadius: "50%",
             }}

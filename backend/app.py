@@ -26,7 +26,6 @@ def process_bird_data(json_data):
         categories=json_data["categories"],
         user_data=json_data["user_data"]
     )
-    print(request_data.id)
     #claude interpret input
     if request_data.message:
         dic = claude_1(request_data.message, request_data.category_prompt, all_words)

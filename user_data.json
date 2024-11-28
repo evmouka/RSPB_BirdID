@@ -1,40 +1,59 @@
 [
     {
-        "user_data": {
-            "conversation": [
-                {
-                    "text": "It's a small bird with orange-pink on its belly, a bluish-gray head, and cool patterns on its wings with black and white stripes. It looks really colorful when it hops around in the trees.",
-                    "categories_described": {
-                        "size": "small",
-                        "plumage_colour": [
-                            "orange",
-                            "blue",
-                            "grey"
-                        ],
-                        "pattern_markings": [
-                            "black stripe",
-                            "white"
-                        ],
-                        "habitat": "woodland"
-                    },
-                    "new_attribute": {
-                        "movement": "hopping"
-                    },
-                    "length": 34
-                }
-            ],
-            "average_message_length": 34.0,
-            "error": null
-        },
         "app_response": {
+            "correct": false,
             "suggestions": [
-                "great tit (adult)",
+                "robin (adult)",
+                "long-tailed tit",
                 "chaffinch (female)",
                 "chaffinch (male)",
-                "rock dove (ferel pigeon)",
-                "great-spotted woodpecker (adult)"
+                "rock dove (ferel pigeon)"
+            ]
+        },
+        "user_data": {
+            "average_message_length": 5.5,
+            "conversation": [
+                {
+                    "categories_described": {
+                        "plumage_colour": [
+                            "cream/buff",
+                            "brown"
+                        ],
+                        "size": "extra small"
+                    },
+                    "length": 8,
+                    "new_attribute": {},
+                    "text": "extra small bird with cream and brown plumage"
+                },
+                {
+                    "text": "it was yellow",
+                    "categories_described": {
+                        "beak_colour": "yellow",
+                        "plumage_colour": [
+                            "cream/buff",
+                            "brown"
+                        ],
+                        "size": "extra small"
+                    },
+                    "new_attribute": {},
+                    "length": 3
+                }
             ],
-            "correct": true
+            "error": [
+                {
+                    "category": "beak_colour",
+                    "adjective": "yellow",
+                    "bird_value": "black"
+                },
+                {
+                    "category": "plumage_colour",
+                    "adjective": [
+                        "cream/buff",
+                        "brown"
+                    ],
+                    "bird_value": "cream/buff, brown, white"
+                }
+            ]
         }
     }
 ]
