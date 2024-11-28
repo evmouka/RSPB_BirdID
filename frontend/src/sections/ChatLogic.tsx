@@ -3,7 +3,7 @@ import InfoIcon from "../components/info-icon.tsx";
 import ChatBubble from "../components/chat-bubble.tsx";
 import categoryPrompts from "../categoryPrompts.json";
 import BirdIdentity from "../components/birdIdentity.tsx";
-import BirdSelection from "../components/BirdSelection.tsx"; // Import the component
+import BirdSelection from "../components/BirdSelection.tsx";
 import GameMode from "../components/GameMode.tsx";
 
 interface CategoryPrompts {
@@ -18,7 +18,7 @@ interface Message {
 interface Identification {
   name: string;
   picture: string;
-  ["summary"]: string;
+  summary: string;
   user_data: any;
 }
 
@@ -38,7 +38,6 @@ const Chat: React.FC = () => {
   const [categories, setCategories] = useState({});
   const [imageSrc, setImageSrc] = useState("");
   const [birdName, SetBirdName] = useState("");
-  // const [birdSummary, setBirdSummary] = useState("")
   const [hasSentFirstMessage, setHasSentFirstMessage] = useState(false);
   const [userData, setUserData] = useState<any>("");
   const [birdResults, setBirdResults] = useState<any[]>([]);
@@ -74,23 +73,13 @@ const Chat: React.FC = () => {
     }
   }, [messages, hasSentFirstMessage]);
 
-  const handleSend = async () => {
-    if (input.trim() === "") return;
-
-    if (!hasSentFirstMessage) {
-      setHasSentFirstMessage(true);
-    }
-
-    const userMessage: Message = { sender: "user", content: input };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
-
+  const fetchBirdData = async (userMessage: Message, updatedCategories = categories) => {
     setIsLoading(true);
     const loadingMessage: Message = { sender: "chatbot", content: "..." };
     setMessages((prev) => [...prev, loadingMessage]);
 
     try {
-      await fetch("http://localhost:5000/birds", {
+      const response = await fetch("http://localhost:5000/birds", {
         method: "POST",
         headers: {
           "Content-Type": "Application/json",
@@ -98,58 +87,55 @@ const Chat: React.FC = () => {
         body: JSON.stringify({
           message: userMessage.content,
           categoryPrompt: prompt,
-          categories: categories,
+          categories: updatedCategories,
           user_data: userData,
           birdId: -1,
         }),
-      })
-        .then((res) => {
-          if (!res.ok) throw new Error("Failed to fetch response");
-          return res.json();
-        })
-        .then((response) => {
-          const data = response.data;
-          const newPrompt = data.category_prompt;
-          const birdResult: Identifications = data.identifications;
+      });
 
-          // Handle `isConfused`
-          if (response.isConfused) {
-            setMessages((prev) => [
-              ...prev.slice(0, -1),
-              {
-                sender: "chatbot",
-                content: "I'm not sure I understand. Could you provide more details?",
-              },
-            ]);
-          } 
-          const processedSummary = processSummary(data.summary);
-          setMessages((prev) => [
-            ...prev.slice(0, -1),
-            { sender: "chatbot", content: processedSummary },
-          ]);
-          
-          if (birdResult != null) {
-            if (birdResult.length > 0) {
-              setBirdResults(birdResult);
-            }
+      if (!response.ok) throw new Error("Failed to fetch response");
+      const data = (await response.json()).data;
+      const newPrompt = data.category_prompt;
+      const birdResult: Identifications = data.identifications;
 
+      if (data.isConfused) {
+        setMessages((prev) => [
+          ...prev.slice(0, -1),
+          {
+            sender: "chatbot",
+            content: "I'm not sure I understand. Could you provide more details?",
+          },
+        ]);
+      } else {
+        const processedSummary = processSummary(data.categories);
+        setMessages((prev) => [
+          ...prev.slice(0, -1),
+          { sender: "chatbot", content: processedSummary },
+        ]);
+
+        if (birdResult != null) {
+          if (birdResult.length > 0) {
+            setBirdResults(birdResult);
             setImageSrc(birdResult[0].picture);
             SetBirdName(birdResult[0].name);
-          } 
-          setTimeout(() => {
-            if (newPrompt != null) {
-              setMessages((prev) => [
-                ...prev,
-                { sender: "chatbot", content: prompts[newPrompt] },
-              ]);
-            }
-          }, 500);
+          }
+        }
 
-          setPrompt(newPrompt);
-          setCategories(data.categories);
-          setUserData(data.user_data);
-        });
+        setTimeout(() => {
+          if (newPrompt != null) {
+            setMessages((prev) => [
+              ...prev,
+              { sender: "chatbot", content: prompts[newPrompt] },
+            ]);
+          }
+        }, 500);
+
+        setPrompt(newPrompt);
+        setCategories(data.categories);
+        setUserData(data.user_data);
+      }
     } catch (error) {
+      console.error(error);
       setMessages((prev) => [
         ...prev.slice(0, -1),
         {
@@ -161,34 +147,102 @@ const Chat: React.FC = () => {
       setIsLoading(false);
     }
   };
-  // Function to process summary and create clickable bubbles
-  const processSummary = (summary: string) => {
-    const regex = /<([^>]+)>/g; // Match any word inside < > (excluding the angle brackets)
-    const parts = summary.split(regex);  // Split by <...>
-  
-    return parts.map((part, index) => {
-      // If the part is a word inside < >, index will be odd
-      if (index % 2 === 1) {
-        return (
-          <span key={index} className="highlight-bubble">
-            {part}
-            <button
-              className="close"
-              onClick={(e) => {
-                e.stopPropagation();
-                
-              }}
-              >
-            </button>
-          </span>
-        );
-      }
-      return part;
-    });
+
+  const handleSend = async () => {
+    if (input.trim() === "") return;
+
+    if (!hasSentFirstMessage) {
+      setHasSentFirstMessage(true);
+    }
+
+    const userMessage: Message = { sender: "user", content: input };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+
+    await fetchBirdData(userMessage);
   };
+
+  function processSummary(userInput) {
+    const templates = {
+        plumage_colour: "The bird has a plumage that is described as {}.",
+        beak_colour: "Its beak is coloured {}.",
+        feet_colour: "The feet of the bird appear {}.",
+        leg_colour: "Its legs are {}.",
+        beak_shape_1: "The beak is shaped {}.",
+        tail_shape_1: "It has a tail that is {}.",
+        pattern_markings: "There are visible markings or patterns described as {}.",
+        size: "The bird is {} in size.",
+        habitat: "It is commonly found in habitats described as {}."
+    };
+    const updatedCategories = JSON.parse(JSON.stringify(userInput));
+
+    const keywords = new Set();
+    const summaryParts = [];
+
+    for (const [category, adjectives] of Object.entries(updatedCategories)) {
+        if (templates[category] && adjectives) {
+            const formattedAdjectives = Array.isArray(adjectives)
+                ? adjectives.join(", ")
+                : adjectives;
+            summaryParts.push(templates[category].replace("{}", formattedAdjectives));
+
+            if (Array.isArray(adjectives)) {
+                adjectives.forEach(adj => keywords.add(adj));
+            } else {
+                keywords.add(adjectives);
+            }
+        }
+    }
+
+    const summary = summaryParts.join(" ");
+
+    const regex = new RegExp(`\\b(${Array.from(keywords).join("|")})\\b`, "gi");
+    const parts = summary.split(regex);
+
+    return parts.map((part, index) => {
+        const lowercasePart = part.toLowerCase();
+        if (keywords.has(lowercasePart)) {
+            return (
+                <span key={index} className="highlight-bubble">
+                    {part}
+                    <button
+                        className="close"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            const newCategories = {...updatedCategories};
+                            for (const [category, value] of Object.entries(newCategories)) {
+                                if (Array.isArray(value)) {
+                                    const filteredValue = value.filter(
+                                        v => v.toLowerCase() !== lowercasePart
+                                    );
+                                    if (filteredValue.length > 0) {
+                                        newCategories[category] = filteredValue;
+                                    } else {
+                                        delete newCategories[category];
+                                    }
+                                } else if (typeof value === 'string') {
+                                    if (value.toLowerCase() === lowercasePart) {
+                                        delete newCategories[category];
+                                    }
+                                }
+                            }
+                                    setCategories((prev) => {
+                                      fetchBirdData({ sender: "user", content: "" }, newCategories);
+                                      return newCategories;
+                                    });
+                        }}
+                    >
+                    </button>
+                </span>
+            );
+        }
+        return part;
+    });
+}
+
   return (
     <div className="flex flex-col h-screen w-full">
-      <GameMode/>
+      <GameMode />
       <main className="flex justify-center basis-full p-6 bg-gray-200">
         <div className="flex flex-col gap-4 w-full max-w-screen-sm">
           {messages.map((msg, index) => (
@@ -196,10 +250,10 @@ const Chat: React.FC = () => {
               <ChatBubble sender={msg.sender} content={msg.content} />
             </div>
           ))}
-          {/* Conditional rendering of bird results */}
+          {}
           {birdResults.length > 1 ? (
             <>
-              {/* This message only needs to be displayed once */}
+              {}
               <BirdSelection
                 birdResults={birdResults}
                 setBirdResults={setBirdResults}
@@ -266,7 +320,6 @@ const Chat: React.FC = () => {
         </div>
       </footer>
     </div>
-
   );
 };
 

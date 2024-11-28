@@ -4,7 +4,7 @@ from model.answer import Answer
 from flask_cors import CORS, cross_origin
 from src.filter import find_bird, fetch_db
 from src.claude_1a import claude_1
-from src.utils import update_and_join ,server_setup, hard_summary
+from src.utils import update_and_join ,server_setup
 from src.claude_summary import claude_summary
 from src.formatData import formatData, save_user_data
 from dotenv import load_dotenv
@@ -28,22 +28,25 @@ def process_bird_data(json_data):
     )
     print(request_data.id)
     #claude interpret input
-    dic = claude_1(request_data.message, request_data.category_prompt, all_words)
+    if request_data.message:
+        dic = claude_1(request_data.message, request_data.category_prompt, all_words)
 
-    #join new to old dictionnary
-    dic = update_and_join(dic, request_data.categories)
+        #join new to old dictionnary
+        dic = update_and_join(dic, request_data.categories)
 
-    #if both dictionnary are the same and a category was prompt -> set category to null so not reasked
-    if dic == request_data.categories and request_data.category_prompt:
-        dic[request_data.category_prompt] = None
+        #if both dictionnary are the same and a category was prompt -> set category to null so not reasked
+        if dic == request_data.categories and request_data.category_prompt:
+            dic[request_data.category_prompt] = None
+    else:
+        dic = request_data.categories
 
 
     #find next best question + filtering
     question, error, matches = find_bird(dic, app.config['birds_left'], app.config['key_features'], request_data.id, app.config['match_count'])
     #get sumamry from claude
     if dic:
-        summary = hard_summary(dic)
-
+        summary = ""
+        pass
         #custom clause summary
         # summary = claude_summary(dic)
     else:

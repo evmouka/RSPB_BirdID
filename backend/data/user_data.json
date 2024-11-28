@@ -3,26 +3,36 @@
         "user_data": {
             "conversation": [
                 {
-                    "text": "I saw a black bird with a yellow beak and a fan tail",
+                    "text": "is a small, colorful songbird found widely across Europe, North Africa, and western Asia. Here's a visual description:  Size: About 14-16 cm (5.5-6.3 inches) long, with a wingspan of 24-28 cm (9.4-11 inches). Plumage: Males: Have striking plumage with a pinkish-orange breast and face, a blue-grey cap, and greenish-brown back. The wings have bold white wing bars, and the rump is greenish. Females: More subdued, with brownish-grey tones overall but still have the distinctive white wing bars. Beak: A short, conical, and pale-colored beak ideal for cracking seeds. Tail: Medium length, black with white edges. Behavior: Often seen hopping on the ground or perched in trees, emitting a cheerful, melodic song.",
                     "categories_described": {
-                        "plumage_colour": "black",
-                        "beak_colour": "yellow",
-                        "tail_shape_1": "fan"
+                        "size": "small",
+                        "plumage_colour": "orange",
+                        "beak_shape_1": "short",
+                        "beak_colour": "white",
+                        "pattern_markings": [
+                            "white",
+                            "green back"
+                        ],
+                        "tail_shape_1": "long"
                     },
-                    "new_attribute": {},
-                    "length": 13
+                    "new_attribute": {
+                        "wing_span": "24-28 cm",
+                        "call": "melodic",
+                        "movement": "hopping"
+                    },
+                    "length": 111
                 }
             ],
-            "average_message_length": 13.0,
+            "average_message_length": 111.0,
             "error": null
         },
         "app_response": {
             "suggestions": [
-                "blackbird (adult male)",
-                "wood pigeon (adult)",
-                "blackbird (female)",
-                "magpie",
-                "long-tailed tit"
+                "chaffinch (male)",
+                "chaffinch (female)",
+                "rock dove (ferel pigeon)",
+                "great-spotted woodpecker (adult)",
+                "house sparrow (adult female)"
             ],
             "correct": true
         }
