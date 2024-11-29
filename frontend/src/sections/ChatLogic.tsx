@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import InfoIcon from "../components/info-icon.tsx";
 import ChatBubble from "../components/chat-bubble.tsx";
 import categoryPrompts from "../categoryPrompts.json";
@@ -43,6 +43,13 @@ const Chat: React.FC = () => {
   const [birdResults, setBirdResults] = useState<any[]>([]);
   const [birdId, setBirdId] = useState<string | null>(null); // Save bird ID
   const [showImage, setShowImage] = useState(false); // Add showImage state
+  const inputRef = useRef<HTMLInputElement>(null); 
+
+  useEffect(() => {
+    if (!isLoading && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     if (birdResults.length > 1) {
@@ -164,6 +171,14 @@ const Chat: React.FC = () => {
     await fetchBirdData(userMessage);
   };
 
+  const scrollToBottom = () => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+      scrollToBottom();
+  }, [messages]);
+
   function processSummary(userInput) {
     const templates = {
         plumage_colour: "The bird has a plumage that is described as {}.",
@@ -232,6 +247,7 @@ const Chat: React.FC = () => {
                                       fetchBirdData({ sender: "user", content: "" }, newCategories);
                                       return newCategories;
                                     });
+                                    scrollTo
                         }}
                     >
                     </button>
@@ -257,7 +273,7 @@ const Chat: React.FC = () => {
     <div className="flex flex-col h-screen w-full">
       <GameMode onGameStart={handleGameStart} />
       <main className="flex justify-center basis-full p-6 bg-gray-200">
-        <div className="flex flex-col gap-4 w-full max-w-screen-sm">
+        <div className="flex flex-col gap-4 w-full max-w-screen-sm chat-container">
           {messages.map((msg, index) => (
             <div key={index}>
               <ChatBubble sender={msg.sender} content={msg.content} />
@@ -315,6 +331,7 @@ const Chat: React.FC = () => {
               }}
               placeholder="Type your message..."
               disabled={isLoading}
+              ref={inputRef}
               className="flex-1 px-6 py-3 border rounded-full border-gray-400 placeholder:text-gray-500"
             />
             <button

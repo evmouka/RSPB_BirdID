@@ -22,11 +22,13 @@ const BirdResult: React.FC = () => {
     const location = useLocation();
     const birdFromRoute = location.state;
 
+
     const [birdData, setBirdData] = useState(birdFromRoute || {});
     const [birdDescription, setBirdDescription] = useState('');
 
     useEffect(() => {    
         if (birdData) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
           const summaryKey = Object.keys(birdData).find(key => key.trim() === 'summary');
           if (summaryKey !== undefined) {
             setBirdDescription(birdData[summaryKey]);
@@ -91,11 +93,11 @@ const BirdResult: React.FC = () => {
             </div>
         </div>
 
-        <div className="information">
-            <div className="bird-title">
+        <div className="information" style={{paddingLeft: "1em"}}>
+            <div className="bird-title" style={{fontSize: "xx-large"}}>
                 <h2>{birdData.name}</h2>
             </div>
-            <div className="bird-gender">
+            <div className="bird-gender" style={{fontSize: "large"}}>
                 <ul className="no-bullet">
                     {birdData.sex_age_variations == "male" ? <li>Male</li>
                     : <li>Female</li>}
@@ -128,7 +130,7 @@ const BirdResult: React.FC = () => {
             </button>
         </div>
 
-        <div className="features">
+        <div className="features" style={{paddingLeft: "1em"}}>
             <div className="features-heading">
                 <p className="strong">Key features</p>
             </div>
@@ -147,22 +149,6 @@ const BirdResult: React.FC = () => {
                     <div className="features-stats">
                         <p className="medium">Feathers</p>
                     </div>
-                    <div className="colours icon-text">
-                        <div className="icon">
-                            <span className="dot brown"></span>
-                        </div>
-                        <div className="colour">
-                            <p>Brown</p>
-                        </div>
-                    </div>
-                    <div className="colours icon-text">
-                        <div className="icon">
-                            <span className="dot grey"></span>
-                        </div>
-                        <div className="colour">
-                            <p>Grey</p>
-                        </div>
-                    </div>
                     {plumageColours.map((color, index) => (
                         <div key={index} className="colours icon-text">
                             <div className="icon">
@@ -173,14 +159,6 @@ const BirdResult: React.FC = () => {
                                     </div>
                                     </div>
                                 ))}
-                    <div className="colours icon-text">
-                        <div className="icon">
-                            <span className="dot cream"></span>
-                        </div>
-                        <div className="colour">
-                            <p>Cream</p>
-                        </div>
-                    </div>
                 </div>
                 <div className="features-item">
                     <div className="features-stats">

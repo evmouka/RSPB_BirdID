@@ -44,10 +44,11 @@ const GameMode: React.FC<GameModeProps> = ({ onGameStart }) => {
     <div>
       <button
         style={{
-          background: "green",
-          borderRadius: "9999px",
-          color: "white",
-          padding: "5px",
+          background: "rgb(45,212,191)",
+          borderRadius: "15px",
+          color: "black",
+          padding: "5px 20px",
+          margin: "1rem"
         }}
         onClick={handleGameStart}
       >
