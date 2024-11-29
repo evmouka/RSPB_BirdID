@@ -274,7 +274,7 @@ p.small {
 }
 
 .highlight-bubble .close:before {
-    content: "×"; /* Unicode for a cross */
+    content: "×";
     font-size: 12px;
     line-height: 1;
 }

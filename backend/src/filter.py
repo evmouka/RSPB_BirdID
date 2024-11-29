@@ -40,20 +40,24 @@ def fetch_db(querry: str, params: list, isGame: bool=False) -> list:
 def find_error(bird: dict, dic: dict) -> list:
     exclusions = []
     
-    for key, value in dic.items():
-        if value is None:
+    for key, values in dic.items():
+        if not values:
             continue
-        bird_value = bird.get(key, "") or ""
-        if not bird_value:
-            continue
-        bird_values = bird_value.split(', ')
-        if value not in bird_values:
-            exclusions.append({
-                "category": key,
-                "adjective": value,
-                "bird_value": bird_value,
-            })
-    
+        print(values)
+        if isinstance(values, str):
+            values = [values]
+        print (values)
+        for value in values:
+            bird_value = bird.get(key, "") or ""
+            if not bird_value:
+                continue
+            bird_values = bird_value.split(', ')
+            if value not in bird_values:
+                exclusions.append({
+                    "category": key,
+                    "adjective": value,
+                    "bird_value": bird_value,
+                })
     return exclusions
 
 def find_bird(dic: dict, birds_left:int, features: list,  id: int, match_count: int) -> tuple:

@@ -38,10 +38,10 @@ const BirdResult: React.FC = () => {
 
       const getPlumageColors = (plumage: string) => {
         return plumage
-            .replace(/Plumage colour\(s\):/, '') // Remove the label
-            .split(/[,/]/) // Split by comma or slash
-            .map((color) => color.trim()) // Trim extra whitespace
-            .filter((color) => color !== ""); // Remove empty values
+            .replace(/Plumage colour\(s\):/, '')
+            .split(/[,/]/)
+            .map((color) => color.trim())
+            .filter((color) => color !== "");
     };
 
 

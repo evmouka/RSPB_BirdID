@@ -5,14 +5,14 @@ interface GameModeProps {
 }
 
 const GameMode: React.FC<GameModeProps> = ({ onGameStart }) => {
-  const [birdId, setBirdId] = useState<string | null>(null); // Save the bird ID
+  const [birdId, setBirdId] = useState<string | null>(null);
   const [showImage, setShowImage] = useState(false);
-  const [imageSrc, setImageSrc] = useState<string | null>(null); // Save image URL
-  const [error, setError] = useState<string | null>(null); // Error state
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleGameStart = async () => {
-    setError(null); // Clear previous errors
-    setShowImage(false); // Reset image display
+    setError(null);
+    setShowImage(false);
     try {
       const response = await fetch("http://localhost:5000/new-bird");
 
@@ -23,20 +23,18 @@ const GameMode: React.FC<GameModeProps> = ({ onGameStart }) => {
       }
 
       const data = await response.json();
-      setBirdId(data.id); // Save the bird ID
-      setImageSrc(data.image); // Save the image URL
-      setShowImage(true); // Show the image
+      setBirdId(data.id);
+      setImageSrc(data.image);
+      setShowImage(true);
 
-      // Pass birdId and imageSrc to parent component
       onGameStart(data.id, data.image);
 
-      // Hide the image after 5 seconds
       setTimeout(() => {
         setShowImage(false);
       }, 5000);
     } catch (error: any) {
       console.error("Error fetching bird data:", error);
-      setError(error.message); // Show error message
+      setError(error.message);
     }
   };
 
@@ -67,7 +65,7 @@ const GameMode: React.FC<GameModeProps> = ({ onGameStart }) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            zIndex: 10000, // Ensure the overlay is on top
+            zIndex: 10000,
           }}
         >
           <div

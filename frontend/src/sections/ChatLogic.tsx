@@ -41,8 +41,8 @@ const Chat: React.FC = () => {
   const [hasSentFirstMessage, setHasSentFirstMessage] = useState(false);
   const [userData, setUserData] = useState<any>("");
   const [birdResults, setBirdResults] = useState<any[]>([]);
-  const [birdId, setBirdId] = useState<string | null>(null); // Save bird ID
-  const [showImage, setShowImage] = useState(false); // Add showImage state
+  const [birdId, setBirdId] = useState<string | null>(null); 
+  const [showImage, setShowImage] = useState(false); 
   const inputRef = useRef<HTMLInputElement>(null); 
 
   useEffect(() => {
@@ -98,7 +98,7 @@ const Chat: React.FC = () => {
           categoryPrompt: prompt,
           categories: updatedCategories,
           user_data: userData,
-          birdId: birdId, // Include birdId in the request
+          birdId: birdId,
         }),
       });
 
@@ -263,7 +263,6 @@ const Chat: React.FC = () => {
     setImageSrc(imageSrc);
     setShowImage(true);
 
-    // Hide the image after 5 seconds
     setTimeout(() => {
       setShowImage(false);
     }, 5000);
@@ -362,13 +361,13 @@ const Chat: React.FC = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            zIndex: 10000, // Ensure the overlay is on top
+            zIndex: 10000,
           }}
         >
           <div
             style={{
-              width: "500px", // Fixed width
-              height: "500px", // Fixed height
+              width: "500px",
+              height: "500px", 
               overflow: "hidden",
               borderRadius: "50%",
             }}
