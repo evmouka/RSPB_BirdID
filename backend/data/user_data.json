@@ -1,2 +1,105 @@
 [
+    {
+        "app_response": {
+            "correct": true,
+            "suggestions": [
+                "house sparrow (adult female)",
+                "house sparrow (adult male)",
+                "chaffinch (female)",
+                "chaffinch (male)",
+                "rock dove (ferel pigeon)"
+            ]
+        },
+        "user_data": {
+            "average_message_length": 5.0,
+            "conversation": [
+                {
+                    "categories_described": {
+                        "plumage_colour": "brown",
+                        "size": "small"
+                    },
+                    "length": 7,
+                    "new_attribute": {},
+                    "text": "hi! I saw a small brownish bird"
+                },
+                {
+                    "text": "it was blue",
+                    "categories_described": {
+                        "leg_colour": "blue",
+                        "plumage_colour": "brown",
+                        "size": "small"
+                    },
+                    "new_attribute": {},
+                    "length": 3
+                }
+            ],
+            "error": null
+        }
+    },
+    {
+        "app_response": {
+            "correct": true,
+            "suggestions": [
+                "great-spotted woodpecker (adult)",
+                "blackbird (female)",
+                "robin (adult)",
+                "great tit (adult)",
+                "chaffinch (female)"
+            ]
+        },
+        "user_data": {
+            "average_message_length": 3.25,
+            "conversation": [
+                {
+                    "categories_described": {
+                        "habitat": "woodland",
+                        "plumage_colour": "white",
+                        "size": "small"
+                    },
+                    "length": 7,
+                    "new_attribute": {
+                        "appearance": "fluffy"
+                    },
+                    "text": "small fluggy white bird in the tree"
+                },
+                {
+                    "categories_described": {
+                        "habitat": "woodland",
+                        "leg_colour": null,
+                        "plumage_colour": "white",
+                        "size": "small"
+                    },
+                    "length": 4,
+                    "new_attribute": {},
+                    "text": "I didn't see it"
+                },
+                {
+                    "categories_described": {
+                        "beak_shape_1": "long",
+                        "habitat": "woodland",
+                        "leg_colour": null,
+                        "plumage_colour": "white",
+                        "size": "small"
+                    },
+                    "length": 1,
+                    "new_attribute": {},
+                    "text": "long"
+                },
+                {
+                    "text": "idk",
+                    "categories_described": {
+                        "beak_shape_1": "long",
+                        "habitat": "woodland",
+                        "leg_colour": null,
+                        "plumage_colour": "white",
+                        "size": "small",
+                        "pattern_markings": null
+                    },
+                    "new_attribute": {},
+                    "length": 1
+                }
+            ],
+            "error": null
+        }
+    }
 ]
