@@ -1,0 +1,144 @@
+// Types for the bird classification system
+// language typescript. 
+// this is a simple example of a bird classification system writen in typescript
+// Bird species categories
+enum BirdSpeciesCategory {
+  BIRD_OF_PREY = 'bird_of_prey',
+  BIRD_OF_PARADISE = 'bird_of_paradise',
+  BIRD_OF_WAR = 'bird_of_war'
+}
+// Color options
+enum BirdColor {
+  BLUE = 'blue',
+  BLACK = 'black',
+  BROWN = 'brown',
+  GREY = 'grey',
+  GREEN = 'green',
+  ORANGE = 'orange',
+  PINK = 'pink',
+  PURPLE = 'purple',
+  RED = 'red',
+  YELLOW = 'yellow',
+  WHITE = 'white',
+  BEIGE = 'beige'
+}
+
+// Beak shape categories
+enum BeakShape {
+  SHARP_THIN_POINTED = 'sharp_thin_pointed',
+  SHORT_STUBBY_POINTED = 'short_stubby_pointed',
+  SHORT_NARROW_CURVED = 'short_narrow_curved',
+  SHARP_THICK_POINTED = 'sharp_thick_pointed',
+  LONG_WIDE_ROUNDED = 'long_wide_rounded',
+  SHORT_SHARP_HOOKED = 'short_sharp_hooked',
+  LONG_THICK_CURVED = 'long_thick_curved',
+  VERY_LONG_THIN = 'very_long_thin'
+}
+
+// Tail shape categories
+enum TailShape {
+  FORKED = 'forked',
+  POINTED = 'pointed',
+  ROUNDED = 'rounded',
+  SQUARED = 'squared',
+  DIAMOND = 'diamond',
+  FAN = 'fan',
+  DOUBLE = 'double'
+}
+
+// Habitat categories
+enum Habitat {
+  WOODLAND = 'woodland',
+  GARDEN_OR_PARK = 'garden_or_park',
+  FARMLAND_OR_HEDGEROW = 'farmland_or_hedgerow',
+  COAST = 'on_the_coast',
+  MEADOW_OR_GRASSLAND = 'meadow_or_grassland',
+  MOUNTAINS_OR_UPLANDS = 'mountains_or_uplands',
+  FRESH_WATER = 'near_or_in_fresh_water',
+  TOWN_OR_CITY = 'town_or_city'
+}
+
+// Size categories (automatically calculated based on length)
+enum BirdSize {
+  VERY_SMALL = 'very_small',  // < 15cm
+  SMALL = 'small',           // 15-25cm
+  MEDIUM = 'medium',         // 25-40cm
+  LARGE = 'large',          // 40-70cm
+  VERY_LARGE = 'very_large' // > 70cm
+}
+
+// Main bird species interface
+interface BirdSpecies {
+  id: string;
+  commonName: string;
+  scientificName: string;
+  
+  // Colors
+  plumageColors: BirdColor[];
+  beakColors: BirdColor[];
+  feetColors: BirdColor[];
+  legColors: BirdColor[];
+  
+  // Physical characteristics
+  beakShapes: BeakShape[];  // Max 2
+  tailShapes: TailShape[];  // Max 2
+  
+  // Size measurements
+  minLengthCm: number;
+  maxLengthCm: number;
+  meanLengthCm?: number;    // Automatically calculated
+  size?: BirdSize;          // Automatically calculated
+  
+  // Habitats
+  habitats: Habitat[];
+  
+  // Additional metadata
+  description?: string;
+  commonSpecies: boolean;
+  seasonalPresence?: {
+    spring: boolean;
+    summer: boolean;
+    autumn: boolean;
+    winter: boolean;
+  };
+  
+  // Timestamps
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Search/Filter parameters interface
+interface BirdSearchParams {
+  colors?: BirdColor[];
+  beakShape?: BeakShape[];
+  tailShape?: TailShape[];
+  size?: BirdSize[];
+  habitat?: Habitat[];
+  minLength?: number;
+  maxLength?: number;
+}
+
+// API Response interfaces
+interface BirdSearchResponse {
+  matches: BirdSpecies[];
+  confidence: {
+    colorMatch: number;
+    shapeMatch: number;
+    sizeMatch: number;
+    habitatMatch: number;
+    overallConfidence: number;
+  };
+  totalMatches: number;
+}
+
+// Example API endpoints:
+/*
+GET /api/birds
+POST /api/birds/search
+GET /api/birds/:id
+POST /api/birds/identify
+GET /api/reference/colors
+GET /api/reference/beak-shapes
+GET /api/reference/tail-shapes
+GET /api/reference/habitats
+*/

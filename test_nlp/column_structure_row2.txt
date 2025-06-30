@@ -1,0 +1,78 @@
+Column Structure for Row 2:
+{ ('How to identify', 'Appearance'): 'Male house sparrows have a distinct '
+                                     'plumage with a grey crown, chestnut '
+                                     'nape, and black bib extending down the '
+                                     'throat and breast. Their back and wings '
+                                     'are brown with black streaks and their '
+                                     'underparts are cream. They have a short, '
+                                     'pointed bill which is black during '
+                                     'breeding season and duller outside of '
+                                     'breeding',
+  ('How to identify', 'Behaviour'): 'House Sparrows are typically gregarious '
+                                    'birds, often found in small flocks or '
+                                    'pairs. They are opportunistic feeders, '
+                                    'scavenging for food scraps and seeds in '
+                                    'urban areas',
+  ('How to identify', 'Call'): 'The call of a House Sparrow is a series of '
+                               'chirps and cheeps, often in quick succession',
+  ('How to identify', 'Habitat'): 'House sparrows are highly adaptable birds '
+                                  'that are commonly found in urban and '
+                                  'suburban areas. They are often seen in '
+                                  'gardens, parks, steets and agricultural '
+                                  'areas',
+  ('How to identify', 'Size'): 'House sparrows are small birds, typically '
+                               'measuring around 14-15cm',
+  ('Key Species Information', 'Alt names/ mispellings'): 'Sparrow, '
+                                                         'Housesparrow',
+  ('Key Species Information', 'Conservation status'): 'Red',
+  ('Key Species Information', 'Group'): 'Sparrows',
+  ('Key Species Information', 'Latin name'): 'Passer domesticus',
+  ('Key Species Information', 'Name'): 'House sparrow (adult male)',
+  ('Key Species Information', 'Seasonal Variations'): nan,
+  ('Key Species Information', 'Sex/ Age Variations'): 'Male',
+  ('Key Species Information', 'Species number'): 1.0,
+  ('Key Species Information', 'Summary\n(200 characters)'): 'These noisy and '
+                                                            'sociable birds '
+                                                            'are found around '
+                                                            'the world, thanks '
+                                                            'to their cheerful '
+                                                            'ability to make '
+                                                            'the most of '
+                                                            "humanity's "
+                                                            'rubbish and '
+                                                            'wastefulness',
+  ('Key Species Information', 'Time of year active (UK)'): 'All Year Round',
+  ('Key features', 'Beak Colour(s)'): 'Black',
+  ('Key features', 'Beak Shape 1'): 'Short, stubby & pointed',
+  ('Key features', 'Beak shape 2 (optional)'): nan,
+  ('Key features', 'Diet'): 'Seeds and scraps',
+  ('Key features', 'Feet colour(s)'): 'Pink, Brown',
+  ('Key features', 'Habitat(s)'): 'Urban and Suburban, Farmland',
+  ('Key features', 'Leg colour(s)'): 'Pink, Brown',
+  ('Key features', 'Max Length (cm)'): 15.0,
+  ('Key features', 'Mean length (cm)'): 14.5,
+  ('Key features', 'Min Length (cm)'): 14.0,
+  ('Key features', 'Pattern/ Markings'): nan,
+  ('Key features', 'Plumage colour(s)'): 'Cream/Buff, Brown, Grey, Black, '
+                                         'White',
+  ('Key features', 'Population (UK)'): '5,300,00 pairs',
+  ('Key features', 'Size'): 'Small',
+  ('Key features', 'Tail shape 1'): 'Square',
+  ('Key features', 'Tail shape 2 (optional)'): nan,
+  ('Key features', 'Weight (g)'): '24-38',
+  ('Key features', 'Wingspan (cm)'): '21-25.5',
+  ('Media', 'Audio'): 'Audio',
+  ('Media', 'Distribution map'): 'Distribution map',
+  ('Media', 'Illustration'): 'Illustration',
+  ('Media', 'Picture (Primary)'): 'Primary image',
+  ('Media', 'Picture 2'): 'Picture 2',
+  ('Media', 'Picture 3'): 'Missing',
+  ('Media', 'Picture 4'): 'Missing',
+  ('Other', 'Similar species'): 'Dunnocks, Tree Sparrows',
+  ('Other', 'Where to see them (countries)'): 'England, Scotland, Wales, '
+                                              'Northern Ireland',
+  ('Trivia', 'Fact 1'): 'The collective noun for House Sparrows is a Quarrel '
+                        'of Sparrows',
+  ('Trivia', 'Fact 2'): 'Sparrows can fly up to 31mph',
+  ('Trivia', 'Fact 3'): 'There has been a nearly 60% decline in House Sparrow '
+                        'populations since 1979'}
